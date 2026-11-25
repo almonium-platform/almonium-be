@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
 import v3_entries
-from prompting import HERE, PILOT_LANGUAGES, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, since_v4, system_prompt, user_prompt
+from prompting import HERE, PILOT_LANGUAGES, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, since_v4, spoken_for, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -112,6 +112,8 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     # a v4 entry from any writer (the API writer, Codex) is the word's entry: never buy it twice. A trial folder is
     # the exception it was made for: the same words written a second way, kept apart from the dictionary's entries.
     if WRITER_SUFFIX and not TRIAL_FOLDER and any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")):
+        return "skip"
+    if not TRIAL_FOLDER and spoken_for(lang, row["headword"]):  # another plan's writer has it
         return "skip"
     # a word with an older entry is mended (mend_v4.py), not bought again, unless the mender said it must be rewritten
     if WRITER_SUFFIX and not TRIAL_FOLDER and not REWRITE_OLDER and v3_entries.has_older(lang, row["headword"]):

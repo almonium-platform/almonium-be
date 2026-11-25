@@ -22,7 +22,7 @@ from pathlib import Path
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
 import v3_entries
-from prompting import HERE, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_VERSION, WRITER_SUFFIX, spoken_for, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -37,7 +37,7 @@ REWRITE_OLDER = False  # --rewrite-older: write words with an older entry too (t
 
 
 def has_entry(lang, headword):
-    return any((d / f"{headword}.json").exists() for d in OUT.glob(f"*{WRITER_SUFFIX}/{lang}"))
+    return any((d / f"{headword}.json").exists() for d in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")) or spoken_for(lang, headword)
 
 
 def parse(text):

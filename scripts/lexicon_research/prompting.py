@@ -15,6 +15,7 @@ entries by selecting the ones it concerns, never by starting a new directory."""
 import hashlib
 import json
 import os
+import time
 from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
@@ -45,6 +46,20 @@ TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt", "ru")
 # them by default and nothing is published until a pilot has been read and their examples reviewed.
 PILOT_LANGUAGES = ("ja",)
 
+
+# A folder out/review-*/ that holds this file is written for the dictionary by a writer on another plan
+# (seat_writer.py --for-dictionary): no ingest reads it yet, and every writer leaves its words alone, so
+# that two plans do not pay for the same word.
+SPOKEN_FOR = "written-for-the-dictionary"
+_spoken_for = {}
+
+
+def spoken_for(lang, headword, but=None):
+    """Whether a folder written for the dictionary on another plan has this word; `but` is the asker's own."""
+    now = time.time()
+    if now - _spoken_for.get("at", 0) > 300:  # a folder marked while a writer runs is seen within five minutes
+        _spoken_for.update(at=now, folders=[m.parent for m in (HERE / "out").glob(f"review-*/{SPOKEN_FOR}")])
+    return any(d.name != but and (d / lang / f"{headword}.json").exists() for d in _spoken_for["folders"])
 
 def schema_of_meta(meta):
     """The shape an entry's meta names, with November's first week read as schema 4."""

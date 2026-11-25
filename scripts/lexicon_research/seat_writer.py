@@ -26,7 +26,7 @@ HERE = Path("scripts/lexicon_research")
 sys.path.insert(0, str(HERE))
 import jsonschema  # noqa: E402
 import review_v4  # noqa: E402
-from prompting import PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, TARGET_LANGUAGES, system_prompt, user_prompt  # noqa: E402
+from prompting import PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, SPOKEN_FOR, TARGET_LANGUAGES, WRITER_SUFFIX, spoken_for, system_prompt, user_prompt  # noqa: E402
 
 OUT = HERE / "out"
 SCHEMA = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
@@ -39,6 +39,9 @@ def write_one(a, lang, system, row):
     target = folder / f"{row['headword']}.json"
     if target.exists():
         return "have"
+    if getattr(a, "for_dictionary", False) and (spoken_for(lang, row["headword"], but=a.out)
+                             or any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}"))):
+        return "have"  # the dictionary has the word, or another plan's writer does
     if _stop or _spent[0] >= a.budget_usd or (a.stop_file and Path(a.stop_file).exists()):
         return "stopped"
     started = time.time()
@@ -79,9 +82,14 @@ def main():
     ap.add_argument("--strict", action="store_true", help="the provider holds the answer to the schema (OpenRouter's structured outputs)")
     ap.add_argument("--loose", action="store_true", help="the default now; kept so that an older command still runs")
     ap.add_argument("--stop-file", default="")
+    ap.add_argument("--for-dictionary", action="store_true",
+                    help="these entries are meant for the dictionary: skip a word it has, and have every other writer skip the words written here")
     a = ap.parse_args()
     if not a.out.startswith("review-"):
         sys.exit("--out takes a folder name that begins review-: any other would be read as the dictionary's entries")
+    if a.for_dictionary:
+        (OUT / a.out).mkdir(parents=True, exist_ok=True)
+        (OUT / a.out / SPOKEN_FOR).write_text("Written for the dictionary on another plan; the other writers skip these words (prompting.spoken_for).\n")
     review_v4.MAX_TOKENS = a.max_tokens
     only, got = set(filter(None, a.words.split(","))), []
     for lang in a.langs.split(","):

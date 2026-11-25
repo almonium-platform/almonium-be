@@ -24,7 +24,7 @@ sys.path.insert(0, "scripts/lexicon_research")
 import jsonschema
 import lemma_gate
 import v3_entries  # noqa: E402
-from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, spoken_for, system_prompt, user_prompt
 
 OUT = HERE / "out"
 ROOT = Path(".")
@@ -137,6 +137,7 @@ for lang in a.langs.split(","):
     pending = [r for r in rows if not (OUT / WRITER / lang / f"{r['headword']}.json").exists()]
     if WRITER_SUFFIX:  # a v4 entry from any writer is the word's entry
         pending = [r for r in pending if not any((o / f"{r['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}"))]
+        pending = [r for r in pending if not spoken_for(lang, r["headword"])]  # another plan's writer has it
         # a word with an older entry is mended (mend_v4.py), not bought again
         pending = [r for r in pending if not v3_entries.has_older(lang, r["headword"])]
     pending = [r for r in pending if not lemma_gate.stop(lang, r, f"api-{a.model}", not a.no_gate)]
