@@ -42,7 +42,7 @@
         <version.uuid-creator>6.1.1</version.uuid-creator>
         <version.zxing>3.5.4</version.zxing>
         <version.maxmind-db>4.2.0</version.maxmind-db>
-        <version.json-schema-validator>1.5.6</version.json-schema-validator>
+        <version.json-schema-validator>3.0.9</version.json-schema-validator>
     </properties>
 
     <dependencyManagement>
