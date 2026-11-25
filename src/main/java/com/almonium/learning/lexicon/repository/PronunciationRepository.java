@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface PronunciationRepository extends JpaRepository<Pronunciation, UUID> {
     /**
-     * The pronunciations of a language no clip has been made for yet, with their lexeme and form loaded, in a stable
-     * order (headword, rank, then variety and id as tie-breakers) so that paging by offset never skips or repeats.
+     * The pronunciations of a language no clip has been made for yet, with their lexeme and form loaded, most frequent first
+     * (zipf descending, then headword, rank, variety and id as tie-breakers) so that paging by offset never skips or repeats.
      */
     @Query("""
             select p from Pronunciation p
@@ -18,7 +18,7 @@ public interface PronunciationRepository extends JpaRepository<Pronunciation, UU
             left join fetch p.form
             where l.language = :language
               and not exists (select c.id from AudioClip c where c.pronunciation = p)
-            order by l.headword, p.rank, p.variety, p.id
+            order by l.zipf desc nulls last, l.headword, p.rank, p.variety, p.id
             limit :limit offset :offset
             """)
     List<Pronunciation> findWithoutClips(

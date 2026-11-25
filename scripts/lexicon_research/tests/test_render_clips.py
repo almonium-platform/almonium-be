@@ -289,3 +289,155 @@ def test_varieties_narrow_the_run(out, monkeypatch, capsys):
     totals = render_clips.run(["en"], backend, None, None, dry_run=True)
     assert totals["en"]["skipped"] == 0
 
+
+
+# ---------------------------------------------------------------- gates, ordering, dedupe, cached-only
+
+
+def test_homographs_deduplicate_synthesis_and_transcription_across_workers(out, monkeypatch):
+    rows = [
+        dict(row("p-n", "run", "en", phonemic="/ɹʌn/"), pos="noun"),
+        dict(row("p-v", "run", "en", phonemic="/ɹʌn/"), pos="verb"),
+    ]
+    transcripts = {("/ɹʌn/", 1): "run"}
+    http = FakeHttp({"en": rows}, transcripts)
+    monkeypatch.setattr(render_clips, "requests", http)
+
+    transcribe_calls = []
+
+    class CountingWhisper(FakeWhisper):
+        def transcribe(self, path, lang):
+            transcribe_calls.append(path.name)
+            return super().transcribe(path, lang)
+
+    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    eleven = render_clips.ElevenLabs("k")
+    totals = render_clips.run(
+        ["en"], backend, eleven, lambda: CountingWhisper(transcripts), workers=3, varieties={"en-US"}
+    )
+
+    assert http.calls == {"/ɹʌn/": 1}
+    assert len(transcribe_calls) == 1
+    assert totals["en"]["rendered"] == 2 and totals["en"]["verified"] == 2
+    assert totals["en"]["reused"] == 1
+    assert totals["en"]["credits"] == pytest.approx(0.4 * len("/ɹʌn/"))
+    assert {pid for pid, *_ in http.puts} == {"p-n", "p-v"}
+
+
+def test_ingested_filter_and_headword_gate_drop_legacy_and_unfit_entries(out, monkeypatch):
+    s4 = out / "lexicon-s4" / "en"
+    s4.mkdir(parents=True)
+    (s4 / "have.json").write_text(
+        json.dumps(
+            {
+                "headword": "have",
+                "lexemes": [
+                    {
+                        "lemma": "have",
+                        "pos": "verb",
+                        "pronunciations": [{"variety": "en-US", "ipa": "/hæv/"}],
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (s4 / "London.json").write_text(
+        json.dumps(
+            {
+                "headword": "London",
+                "lexemes": [
+                    {
+                        "lemma": "London",
+                        "pos": "noun",
+                        "pronunciations": [{"variety": "en-US", "ipa": "/ˈlʌn.dən/"}],
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (s4 / "rejected.json").write_text(json.dumps({"headword": "rejected", "reject": "not a lemma"}), encoding="utf-8")
+
+    rows = [
+        dict(row("p-s4", "have", "en", phonemic="/hæv/"), pos="verb"),
+        dict(row("p-legacy", "have", "en", phonemic="/hæv/"), pos="noun"),  # not in lexicon-s4
+        dict(row("p-name", "London", "en", phonemic="/ˈlʌn.dən/"), pos="noun"),
+        dict(row("p-rej", "rejected", "en", phonemic="/rɪ.ˈdʒɛk.tɪd/"), pos="verb"),
+    ]
+    http = FakeHttp({"en": rows}, {})
+    monkeypatch.setattr(render_clips, "requests", http)
+    backend = render_clips.Backend("http://backend/api/v1", "secret")
+
+    totals = render_clips.run(
+        ["en"],
+        backend,
+        None,
+        None,
+        dry_run=True,
+        ingested_only=True,
+        gate=True,
+        unfit_fn=lambda lang, hw: "proper name" if hw == "London" else None,
+    )
+    assert totals["en"]["pending"] == 4
+    assert totals["en"]["skipped"] == 3
+    assert totals["en"]["credits"] == pytest.approx(0.4 * len("/hæv/"))
+
+
+def test_plan_orders_most_frequent_zipf_first(out, monkeypatch):
+    rows = [
+        row("p-rare", "aardvark", "en", phonemic="/ˈɑːrd.vɑːrk/"),
+        row("p-common", "the", "en", phonemic="/ðə/"),
+    ]
+    jobs, _ = render_clips.plan("en", rows)
+    assert [j["text"] for j in jobs] == ["the", "aardvark"]
+
+
+def test_cached_only_uploads_cached_clips_without_elevenlabs_or_whisper(out, monkeypatch):
+    rows = [
+        row("p-cached", "maison", "fr"),
+        row("p-missing", "soleil", "fr"),
+    ]
+    transcripts = {("maison", 1): "maison"}
+    http = FakeHttp({"fr": rows}, transcripts)
+    monkeypatch.setattr(render_clips, "requests", http)
+    backend = render_clips.Backend("http://backend/api/v1", "secret")
+
+    # seed only "maison" on disk via a normal run (persists transcript + duration_ms into meta)
+    render_clips.run(
+        ["fr"], backend, render_clips.ElevenLabs("k"), lambda: FakeWhisper(transcripts), limit=1
+    )
+    assert http.calls == {"maison": 1}
+    http.puts.clear()
+
+    def whisper_should_not_run():
+        raise AssertionError("whisper should not load when transcript & duration_ms are already cached")
+
+    totals = render_clips.run(
+        ["fr"], backend, None, whisper_should_not_run, cached_only=True
+    )
+    assert http.calls == {"maison": 1}  # zero new ElevenLabs calls
+    assert totals["fr"]["rendered"] == 1 and totals["fr"]["verified"] == 1
+    assert totals["fr"]["skipped"] == 1 and totals["fr"]["credits"] == 0
+    assert [pid for pid, *_ in http.puts] == ["p-cached"]
+
+
+def test_chunked_budget_stops_cleanly_at_headword_boundary(out, monkeypatch):
+    rows = [
+        row("p-the-us", "the", "en", phonemic="/ðə/"),
+        dict(row("p-the-gb", "the", "en", phonemic="/ðə/"), variety="en-GB"),
+        row("p-water-us", "water", "en", phonemic="/ˈwɔː.tər/"),
+        dict(row("p-water-gb", "water", "en", phonemic="/ˈwɔː.tə/"), variety="en-GB"),
+    ]
+    transcripts = {("/ðə/", 1): "the", ("/ðə/", 2): "the", ("/ˈwɔː.tər/", 1): "water", ("/ˈwɔː.tə/", 1): "water"}
+    http = FakeHttp({"en": rows}, transcripts)
+    monkeypatch.setattr(render_clips, "requests", http)
+    backend = render_clips.Backend("http://backend/api/v1", "secret")
+
+    # budget fits "the" (both accents: 2 * 4 * 0.4 * 1.12 = 3.58) but not "water" too
+    eleven = render_clips.ElevenLabs("k", budget=5.0)
+    totals = render_clips.run(
+        ["en"], backend, eleven, lambda: FakeWhisper(transcripts), chunk_size=2
+    )
+    assert totals["en"]["rendered"] == 2 and totals["en"]["verified"] == 2
+    assert {pid for pid, *_ in http.puts} == {"p-the-us", "p-the-gb"}
