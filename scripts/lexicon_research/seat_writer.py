@@ -44,16 +44,25 @@ def write_one(a, lang, system, row):
         return "have"  # the dictionary has the word, or another plan's writer does
     if _stop or _spent[0] >= a.budget_usd or (a.stop_file and Path(a.stop_file).exists()):
         return "stopped"
-    started = time.time()
-    try:
-        # what the provider let through against the schema is kept and marked: an entry that does not fit is a result
-        entry, usage = review_v4.ask(a.seat, user_prompt(lang, row), system, SCHEMA, strict=a.strict, check=False)
-    except review_v4.Wall as wall:
-        _stop.append(str(wall)[:120])
-        return "wall"
-    except RuntimeError as broken:  # not an entry and not a file: the next run asks again
-        print(f"{a.out} {lang} {row['headword']:20} {str(broken)[:200]}", flush=True)
-        return "error"
+    while True:
+        started = time.time()
+        try:
+            # what the provider let through against the schema is kept and marked: an entry that does not fit is a result
+            entry, usage = review_v4.ask(a.seat, user_prompt(lang, row), system, SCHEMA, strict=a.strict, check=False)
+            break
+        except review_v4.Wall as wall:
+            if not getattr(a, "for_dictionary", False):
+                _stop.append(str(wall)[:120])
+                return "wall"
+            # a writer of the dictionary runs for days: it waits out the plan's limit, or a lost login, and asks again
+            print(f"waiting ten minutes: {str(wall)[:160]}", flush=True)
+            for _ in range(60):
+                if a.stop_file and Path(a.stop_file).exists():
+                    return "stopped"
+                time.sleep(10)
+        except RuntimeError as broken:  # not an entry and not a file: the next run asks again
+            print(f"{a.out} {lang} {row['headword']:20} {str(broken)[:200]}", flush=True)
+            return "error"
     with _lock:
         _spent[0] += usage.get("cost_usd") or 0
     problems = [error.message[:120] for error in jsonschema.Draft202012Validator(SCHEMA).iter_errors(entry)]
@@ -102,6 +111,8 @@ def main():
             got += list(pool.map(lambda row: write_one(a, lang, system, row), rows))
     print(", ".join(f"{kind} {got.count(kind)}" for kind in sorted(set(got))) + f"; spent ${_spent[0]:.2f} of ${a.budget_usd:.2f}"
           + (f"; stopped at a wall ({_stop[0]})" if _stop else ""))
+    if a.for_dictionary and "stopped" not in got and "wall" not in got:
+        print("done", flush=True)  # the end of the list: what the book processor's page reads as finished
 
 
 if __name__ == "__main__":
