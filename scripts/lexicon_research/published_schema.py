@@ -5,7 +5,8 @@ senses, the frames read into parts, the spellings it covers and what was dropped
 publication against the file this module writes, src/main/resources/lexicon/entry.schema.json, so the two cannot
 drift: the file is derived from the writers' schema by code, and a test fails when it is stale.
 
-Usage: published_schema.py   (run from the backend repository root; rewrites the backend's file)
+Usage: published_schema.py   (run from the backend repository root; rewrites the backend's two files: the schema it
+       validates a publication against, and the one it serves for download beside the Lexicon API page, see public())
 """
 import copy, json
 from pathlib import Path
@@ -13,6 +14,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 WRITTEN = HERE / "entry.schema.v4.json"
 PUBLISHED = HERE.parents[1] / "src" / "main" / "resources" / "lexicon" / "entry.schema.json"
+# what the backend serves at /public/lexicon/schema, for the Lexicon API page's download: see public()
+PUBLIC = PUBLISHED.with_name("entry.public.schema.json")
 
 UUID = {"type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
 TEXT = {"type": "string", "minLength": 1}
@@ -51,6 +54,7 @@ def published():
     })
     sense = defs["sense"]
     sense["required"] += ["id"]
+    del sense["properties"]["from"]  # a note of the evidence pipeline's; ingest drops it
     sense["properties"].update({
         "id": UUID,
         "patterns": {"type": "array", "minItems": 1, "items": closed(["frame", "parts"], {
@@ -71,10 +75,36 @@ def published():
     return schema
 
 
+# what ingest keeps for the pipeline's own use: who wrote the entry and what ingest did to it
+INTERNAL = ("source", "dropped", "retired_lexemes")
+
+
+def public():
+    """The schema the backend serves for download beside the Lexicon API page: an entry's content, and nothing of how it was made.
+
+    The published schema without the keys that are the pipeline's own (which writer, model and prompt; what ingest
+    dropped or retired; its counts), so the file says what a reader of entries needs and no more.
+    """
+    schema = published()
+    schema["title"] = "Almonium Lexicon entry, schema version 4"
+    schema.pop("description", None)
+    for key in INTERNAL:
+        schema["properties"].pop(key, None)
+    schema["required"] = [key for key in schema["required"] if key not in INTERNAL]
+    schema["additionalProperties"] = False
+    schema["$defs"]["lexeme"]["properties"].pop("retired", None)
+    return schema
+
+
 def text():
     return json.dumps(published(), ensure_ascii=False, indent=1) + "\n"
 
 
+def public_text():
+    return json.dumps(public(), ensure_ascii=False, indent=1) + "\n"
+
+
 if __name__ == "__main__":
-    PUBLISHED.write_text(text(), encoding="utf-8")
-    print(f"wrote {PUBLISHED}")
+    for path, written in ((PUBLISHED, text()), (PUBLIC, public_text())):
+        path.write_text(written, encoding="utf-8")
+        print(f"wrote {path}")

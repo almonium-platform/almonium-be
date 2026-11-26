@@ -66,6 +66,11 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Backend: `learning/lexicon`. It reads schema 4 as ingest publishes it and nothing older; see "The
   backend reads schema 4". Its copy of the schema is derived (`published_schema.py`), and is derived
   again whenever the writers' schema gains a key, as it did with `context` on 19 November.
+  The same script writes a second file, `lexicon/entry.public.schema.json`, which the backend serves at
+  `/public/lexicon/schema` for the Lexicon API page's download: the published schema without what is the
+  pipeline's own (`source`, `dropped`, `retired_lexemes`, a lexeme's `retired`). The web client links to it and
+  keeps no copy. A sense's `from`, the evidence pipeline's note of the Wiktionary senses it covered, is dropped by
+  ingest and is in neither file (26 November 2026).
 
 ## How a word becomes an entry
 

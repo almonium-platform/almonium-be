@@ -474,8 +474,9 @@ class LexiconPublicationFlowTest {
                 .allSatisfy(sense -> assertThat(sense.transcription()).isNull());
     }
 
+    /** {@code from} was the evidence pipeline's note on a sense; ingest drops it and the published schema has no such key. */
     @Test
-    void aSenseCitingTheWiktionarySensesItCoversIsPublished() {
+    void aSenseThatStillCarriesTheEvidencePipelinesFromIsRefused() {
         ObjectNode antenna = publication("antenna");
         ObjectNode sense = (ObjectNode)
                 antenna.path("entry").path("lexemes").get(0).path("senses").get(0);
@@ -483,7 +484,7 @@ class LexiconPublicationFlowTest {
 
         assertThat(publishBatch(antenna))
                 .extracting(EntryPublicationResult::accepted)
-                .containsOnly(true);
+                .containsOnly(false);
     }
 
     @Test

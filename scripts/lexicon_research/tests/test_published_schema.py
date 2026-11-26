@@ -47,3 +47,21 @@ def test_a_rewrite_with_a_retired_sense_and_a_reject_are_valid():
 def test_an_entry_as_a_writer_returned_it_is_not_what_is_published():
     raw = json.loads(prompting.schema_example_v4(prompting.PROMPT_VERSION))
     assert not VALID.is_valid(raw)  # no ids: the backend keys a sense by the id ingest gives it
+
+
+def test_no_sense_is_published_with_the_evidence_pipelines_from():
+    assert "from" not in published_schema.published()["$defs"]["sense"]["properties"]
+
+
+def test_the_schema_offered_for_download_says_nothing_of_how_an_entry_was_made():
+    public = published_schema.public()
+    assert not {"source", "dropped", "retired_lexemes"} & set(public["properties"])
+    assert "source" not in public["required"] and public["additionalProperties"] is False
+    text = published_schema.public_text()
+    # stale after a change to the schema: run scripts/lexicon_research/published_schema.py
+    assert published_schema.PUBLIC.read_text(encoding="utf-8") == text
+    for word in ("Wiktionary", "evidence", "writer", "prompt", "ingest", "scripts/"):
+        assert word not in text, word
+    # an entry as the pipeline keeps it still fits its own schema, and its content alone fits the public one
+    entry = {"language": "es", "headword": "x", "schema": "4", "lexemes": []}
+    jsonschema.Draft202012Validator(public).validate(entry)

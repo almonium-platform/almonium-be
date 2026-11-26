@@ -822,6 +822,11 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), set
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
+    # "from" was the evidence pipeline's note of which evidence senses a sense covered (prompts v5 and v6); a writer of
+    # v4 that still returns the key returns it empty, and nothing published reads it
+    for lexeme in entry.get("lexemes") or []:
+        for sense in lexeme.get("senses") or []:
+            sense.pop("from", None)
     entry["source"] = {"writer": meta.get("writer"), "model": meta.get("model"), "effort": meta.get("effort"),
                        "prompt_version": meta.get("prompt_version"),
                        "prompt_sha": meta.get("prompt_sha") or (V4_SHA.get(lang) if meta.get("prompt_version") == "v4" else None)}
