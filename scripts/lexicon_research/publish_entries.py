@@ -10,7 +10,7 @@ its tables, so this costs no network call (pip install -r requirements.txt). Ent
 published schema (published_schema.py) and names the fault. The signature is HMAC-SHA256 of "{timestamp}." and the
 body under ALMONIUM_BOOKS_PUBLISHER_SECRET, exported or from the backend's .env (see backend_env.py); it is never
 printed.
-Usage: publish_entries.py [--langs en,de] [--backend http://localhost:9998/api/v1] [--words lead,program]
+Usage: publish_entries.py [--langs en,de] [--backend http://localhost:9998/v1] [--words lead,program]
                           [--limit N] [--workers 4] [--batch 50]
 (run from the backend repository root)
 """
@@ -93,7 +93,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--langs", default="en,de,fr,es,it,pt", help="comma-separated language folders under out/lexicon-s4")
     parser.add_argument("--words", default="", help="comma-separated headwords, to publish these only")
-    parser.add_argument("--backend", default="http://localhost:9998/api/v1")
+    parser.add_argument("--backend", default="http://localhost:9998/v1")
     parser.add_argument("--limit", type=int, default=0, help="stop after this many entries (0 = all)")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--batch", type=int, default=50)

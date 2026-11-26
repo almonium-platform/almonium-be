@@ -201,7 +201,7 @@ For the target slot, the role validates the digest, ensures Docker/Compose are
 available, renders the Compose file with
 `ghcr.io/almonium-platform/almonium-be@sha256:<digest>`, retries that immutable
 GHCR pull, recreates the application container, and polls
-`/api/v1/actuator/health` every three seconds for up to roughly three minutes.
+`/v1/actuator/health` every three seconds for up to roughly three minutes.
 The endpoint is publicly permitted by Spring Security, but the slot check
 itself uses a host-loopback port. The Compose health check uses the `curl`
 binary installed in the application runtime image.

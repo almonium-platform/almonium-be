@@ -13,7 +13,7 @@
 
 [Chrome extension](https://github.com/okuzan/chrome-extension)
 
-[API Reference (Swagger UI)](https://api.almonium.com/api/v1/swagger-ui/index.html)
+[API Reference (Swagger UI)](https://api.almonium.com/v1/swagger-ui/index.html)
 
 The Angular frontend uses the browser session-cookie flow. The Expo/React
 Native mobile client uses Firebase ID-token bearer authentication and is

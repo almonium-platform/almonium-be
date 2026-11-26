@@ -114,7 +114,7 @@ which specifies the locale/model/voice naming convention.
 This is catalogue verification, not live synthesis or listening validation.
 Unavailable regional varieties are never mapped to a different region.
 
-Authenticated endpoints, under the existing `/api/v1` prefix:
+Authenticated endpoints, under the existing `/v1` prefix:
 
 - `GET /lang/voices`: all 146 entries, including unavailable ones.
 - `GET /lang/voices/{language}`: entries for an enum code such as `DE` or `HI`;

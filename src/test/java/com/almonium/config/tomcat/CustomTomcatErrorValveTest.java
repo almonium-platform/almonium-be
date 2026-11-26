@@ -27,9 +27,9 @@ class CustomTomcatErrorValveTest {
 
     @Test
     void serverFailureIsLoggedAsAnError(CapturedOutput output) throws Exception {
-        report(500, "/api/v1/books");
+        report(500, "/v1/books");
 
-        assertThat(output).contains("ERROR").contains("Error reported: 500 Internal Server Error - URI: /api/v1/books");
+        assertThat(output).contains("ERROR").contains("Error reported: 500 Internal Server Error - URI: /v1/books");
     }
 
     private StringWriter report(int status, String uri) throws Exception {

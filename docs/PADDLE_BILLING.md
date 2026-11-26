@@ -229,7 +229,7 @@ settings, approved domains, before setting the variable.
 Create a notification destination using API version 1:
 
 ```text
-https://<api-host>/api/v1/public/webhooks/paddle
+https://<api-host>/v1/public/webhooks/paddle
 ```
 
 Enable exactly these events on the notification destination:

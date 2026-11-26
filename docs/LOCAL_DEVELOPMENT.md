@@ -108,7 +108,7 @@ Start the application after both containers report healthy:
 ```
 
 With the template defaults, the API is available at
-`http://localhost:8080/api/v1`. Liquibase applies pending changes to
+`http://localhost:8080/v1`. Liquibase applies pending changes to
 `almonium_local` during startup.
 
 Maven needs a full JDK 25 (`javac` and `lib/ct.sym`), not a runtime: a machine

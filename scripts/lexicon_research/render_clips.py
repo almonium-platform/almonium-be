@@ -13,7 +13,7 @@ the same deterministic key the backend stores them under, so a crash never spend
 
 Usage (from the backend repository root):
     scripts/.venv/bin/python scripts/lexicon_research/render_clips.py --langs en
-        [--varieties en-GB,en-US] [--backend http://localhost:9998/api/v1]
+        [--varieties en-GB,en-US] [--backend http://localhost:9998/v1]
         [--limit N] [--credit-budget N] [--credit-floor N] [--chunk-size 200]
         [--workers 3] [--dry-run] [--cached-only] [--include-forms]
         [--no-ingest-filter] [--no-gate]
@@ -655,7 +655,7 @@ def print_report(totals, dry_run=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--langs", required=True, help="comma-separated languages, e.g. en,fr,es")
-    parser.add_argument("--backend", default="http://localhost:9998/api/v1")
+    parser.add_argument("--backend", default="http://localhost:9998/v1")
     parser.add_argument("--limit", type=int, default=0, help="pronunciations per language (0 = all)")
     parser.add_argument("--credit-budget", type=float, default=0, help="credits this run may spend (0 = no cap)")
     parser.add_argument("--credit-floor", type=float, default=5000, help="stop when the plan has fewer credits left")

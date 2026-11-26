@@ -182,7 +182,7 @@ def test_main_loop_publishes_verified_retried_and_unverified_clips(out, monkeypa
     monkeypatch.setattr(render_clips, "requests", http)
     monkeypatch.setattr(render_clips.time, "sleep", lambda s: None)
 
-    backend = render_clips.Backend("http://backend/api/v1/", "secret")
+    backend = render_clips.Backend("http://backend/v1/", "secret")
     eleven = render_clips.ElevenLabs("k")
     totals = render_clips.run(
         ["fr", "uk"], backend, eleven, lambda: FakeWhisper(transcripts), workers=2, include_forms=True
@@ -226,7 +226,7 @@ def test_main_loop_publishes_verified_retried_and_unverified_clips(out, monkeypa
 def test_dry_run_lists_and_estimates_without_synthesis(out, monkeypatch, capsys):
     http = FakeHttp({"es": [row("p1", "murciélago", "es"), row("p2", "sol", "es")]}, {})
     monkeypatch.setattr(render_clips, "requests", http)
-    totals = render_clips.run(["es"], render_clips.Backend("http://backend/api/v1", "secret"), None, None, dry_run=True)
+    totals = render_clips.run(["es"], render_clips.Backend("http://backend/v1", "secret"), None, None, dry_run=True)
     assert http.calls == {} and http.puts == []
     assert totals["es"]["pending"] == 2 and totals["es"]["rendered"] == 0
     assert totals["es"]["credits"] == pytest.approx(0.4 * (10 + 3))
@@ -238,7 +238,7 @@ def test_limit_pages_until_the_cap(out, monkeypatch):
     http = FakeHttp({"pl": rows}, {})
     monkeypatch.setattr(render_clips, "requests", http)
     monkeypatch.setattr(render_clips, "PAGE", 3)
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
     assert [r["id"] for r in backend.pending("pl", 5)] == ["p0", "p1", "p2", "p3", "p4"]
     assert [p["limit"] for _, p, _ in http.gets] == [3, 2]
     http.gets.clear()
@@ -250,7 +250,7 @@ def test_run_refuses_a_language_without_a_voice(out, monkeypatch):
     http = FakeHttp({}, {})
     monkeypatch.setattr(render_clips, "requests", http)
     with pytest.raises(tts_recipe.UnsupportedLanguage):
-        render_clips.run(["it"], render_clips.Backend("http://backend/api/v1", "secret"), None, None, dry_run=True)
+        render_clips.run(["it"], render_clips.Backend("http://backend/v1", "secret"), None, None, dry_run=True)
     assert http.gets == []
 
 
@@ -259,7 +259,7 @@ def test_other_varieties_and_forms_are_set_aside_unless_asked(out, monkeypatch, 
     rows = [row("p-es", "zona", "es"), mexican, row("p-form", "zona", "es", form="zonas")]
     http = FakeHttp({"es": rows}, {})
     monkeypatch.setattr(render_clips, "requests", http)
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
     totals = render_clips.run(["es"], backend, None, None, dry_run=True)
     printed = capsys.readouterr().out
     assert totals["es"]["pending"] == 3 and totals["es"]["skipped"] == 2
@@ -283,7 +283,7 @@ def test_varieties_narrow_the_run(out, monkeypatch, capsys):
     rows = [row("p-us", "abbey", "en", phonemic="/ˈæb.i/"), dict(row("p-gb", "abbey", "en", phonemic="/ˈæb.i/"), variety="en-GB")]
     http = FakeHttp({"en": rows}, {})
     monkeypatch.setattr(render_clips, "requests", http)
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
     totals = render_clips.run(["en"], backend, None, None, dry_run=True, varieties={"en-US"})
     assert totals["en"]["skipped"] == 1 and "en-GB not asked for" in capsys.readouterr().out
     totals = render_clips.run(["en"], backend, None, None, dry_run=True)
@@ -310,7 +310,7 @@ def test_homographs_deduplicate_synthesis_and_transcription_across_workers(out, 
             transcribe_calls.append(path.name)
             return super().transcribe(path, lang)
 
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
     eleven = render_clips.ElevenLabs("k")
     totals = render_clips.run(
         ["en"], backend, eleven, lambda: CountingWhisper(transcripts), workers=3, varieties={"en-US"}
@@ -367,7 +367,7 @@ def test_ingested_filter_and_headword_gate_drop_legacy_and_unfit_entries(out, mo
     ]
     http = FakeHttp({"en": rows}, {})
     monkeypatch.setattr(render_clips, "requests", http)
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
 
     totals = render_clips.run(
         ["en"],
@@ -401,7 +401,7 @@ def test_cached_only_uploads_cached_clips_without_elevenlabs_or_whisper(out, mon
     transcripts = {("maison", 1): "maison"}
     http = FakeHttp({"fr": rows}, transcripts)
     monkeypatch.setattr(render_clips, "requests", http)
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
 
     # seed only "maison" on disk via a normal run (persists transcript + duration_ms into meta)
     render_clips.run(
@@ -432,7 +432,7 @@ def test_chunked_budget_stops_cleanly_at_headword_boundary(out, monkeypatch):
     transcripts = {("/ðə/", 1): "the", ("/ðə/", 2): "the", ("/ˈwɔː.tər/", 1): "water", ("/ˈwɔː.tə/", 1): "water"}
     http = FakeHttp({"en": rows}, transcripts)
     monkeypatch.setattr(render_clips, "requests", http)
-    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    backend = render_clips.Backend("http://backend/v1", "secret")
 
     # budget fits "the" (both accents: 2 * 4 * 0.4 * 1.12 = 3.58) but not "water" too
     eleven = render_clips.ElevenLabs("k", budget=5.0)
