@@ -6,6 +6,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,9 @@ public class WikidataCatalogSource {
             PREFIX wikibase: <http://wikiba.se/ontology#>
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX schema: <http://schema.org/>
+            PREFIX p: <http://www.wikidata.org/prop/>
+            PREFIX ps: <http://www.wikidata.org/prop/statement/>
+            PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
             """;
 
     // QLever drops every row when wikibase:sitelinks is compared directly; adding zero first works.
@@ -92,6 +96,9 @@ public class WikidataCatalogSource {
 
     public record Label(String workId, String text, String language) {}
 
+    /** The series a work is part of (P179), and its place in it (the P1545 qualifier) as Wikidata writes it. */
+    public record SeriesMembership(String seriesId, String title, String position) {}
+
     /** A Wikisource page with a text of the work: the whole work, or one edition of it with that edition's translators. */
     public record WikisourcePage(String url, String language, String editionId, List<String> translatorIds) {}
 
@@ -103,7 +110,27 @@ public class WikidataCatalogSource {
             Map<String, List<Label>> labelsByWork,
             Map<String, Integer> gutenbergByWork,
             Map<String, String> publisherByWork,
-            Map<String, List<WikisourcePage>> wikisourceByWork) {
+            Map<String, List<WikisourcePage>> wikisourceByWork,
+            Map<String, SeriesMembership> seriesByWork) {
+
+        public Snapshot(
+                Map<String, Work> works,
+                Map<String, List<String>> authorsByWork,
+                Map<String, Person> people,
+                Map<String, List<Label>> labelsByWork,
+                Map<String, Integer> gutenbergByWork,
+                Map<String, String> publisherByWork,
+                Map<String, List<WikisourcePage>> wikisourceByWork) {
+            this(
+                    works,
+                    authorsByWork,
+                    people,
+                    labelsByWork,
+                    gutenbergByWork,
+                    publisherByWork,
+                    wikisourceByWork,
+                    Map.of());
+        }
 
         public Snapshot(
                 Map<String, Work> works,
@@ -111,7 +138,7 @@ public class WikidataCatalogSource {
                 Map<String, Person> people,
                 Map<String, List<Label>> labelsByWork,
                 Map<String, Integer> gutenbergByWork) {
-            this(works, authorsByWork, people, labelsByWork, gutenbergByWork, Map.of(), Map.of());
+            this(works, authorsByWork, people, labelsByWork, gutenbergByWork, Map.of(), Map.of(), Map.of());
         }
     }
 
@@ -268,14 +295,76 @@ public class WikidataCatalogSource {
                     }
                 });
 
+        Map<String, SeriesMembership> seriesByWork = readSeries();
+
         log.info(
-                "Wikidata catalogue: {} works, {} authors, {} with labels, {} with a Gutenberg id",
+                "Wikidata catalogue: {} works, {} authors, {} with labels, {} with a Gutenberg id, {} in a series",
                 works.size(),
                 people.size(),
                 labelsByWork.size(),
-                gutenbergByWork.size());
+                gutenbergByWork.size(),
+                seriesByWork.size());
         return new Snapshot(
-                works, authorsByWork, people, labelsByWork, gutenbergByWork, publisherByWork, wikisourceByWork);
+                works,
+                authorsByWork,
+                people,
+                labelsByWork,
+                gutenbergByWork,
+                publisherByWork,
+                wikisourceByWork,
+                seriesByWork);
+    }
+
+    /**
+     * The series each work is part of, with its name: English, else the language-neutral label ("mul", where Harry
+     * Potter's lives), else any. A work in several series keeps one by {@link #chooseSeries}.
+     */
+    private Map<String, SeriesMembership> readSeries() {
+        Map<String, List<SeriesMembership>> memberships = new HashMap<>();
+        query(
+                "SELECT ?w ?s (SAMPLE(?ord) AS ?position) WHERE { " + NOTABLE_WORK
+                        + "?w p:P179 ?statement . ?statement ps:P179 ?s . "
+                        + "OPTIONAL { ?statement pq:P1545 ?ord } } GROUP BY ?w ?s",
+                cells -> memberships
+                        .computeIfAbsent(SparqlTsv.value(cells.get(0)), key -> new ArrayList<>())
+                        .add(new SeriesMembership(
+                                SparqlTsv.value(cells.get(1)), null, emptyToNull(SparqlTsv.value(cells.get(2))))));
+        Map<String, String> names = new HashMap<>();
+        query(
+                "SELECT ?s (SAMPLE(?en) AS ?nameEn) (SAMPLE(?mul) AS ?nameMul) (SAMPLE(?any) AS ?nameAny) WHERE { "
+                        + "{ SELECT DISTINCT ?s WHERE { " + NOTABLE_WORK + "?w wdt:P179 ?s } } "
+                        + "OPTIONAL { ?s rdfs:label ?en FILTER(LANG(?en) = \"en\") } "
+                        + "OPTIONAL { ?s rdfs:label ?mul FILTER(LANG(?mul) = \"mul\") } "
+                        + "OPTIONAL { ?s rdfs:label ?any } } GROUP BY ?s",
+                cells -> {
+                    String name = firstNonEmpty(
+                            SparqlTsv.value(cells.get(1)),
+                            SparqlTsv.value(cells.get(2)),
+                            SparqlTsv.value(cells.get(3)));
+                    if (name != null) {
+                        names.put(SparqlTsv.value(cells.get(0)), name);
+                    }
+                });
+        return chooseSeries(memberships, names);
+    }
+
+    /**
+     * One named series per work: one that gives the work a place before one that does not, then the smaller series,
+     * which is the more specific one (a story's collection before the whole Sherlock Holmes canon).
+     */
+    static Map<String, SeriesMembership> chooseSeries(
+            Map<String, List<SeriesMembership>> memberships, Map<String, String> names) {
+        Map<String, Integer> sizes = new HashMap<>();
+        memberships.values().forEach(list -> list.forEach(m -> sizes.merge(m.seriesId(), 1, Integer::sum)));
+        Map<String, SeriesMembership> chosen = new HashMap<>();
+        memberships.forEach((work, list) -> list.stream()
+                .filter(m -> names.containsKey(m.seriesId()))
+                .min(Comparator.comparing((SeriesMembership m) -> m.position() == null)
+                        .thenComparing(m -> sizes.get(m.seriesId()))
+                        .thenComparing(SeriesMembership::seriesId))
+                .ifPresent(m ->
+                        chosen.put(work, new SeriesMembership(m.seriesId(), names.get(m.seriesId()), m.position()))));
+        return chosen;
     }
 
     /** Names and lives of the people an inner {@code SELECT DISTINCT ?a} finds; ones already read are kept. */

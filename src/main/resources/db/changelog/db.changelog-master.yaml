@@ -215,3 +215,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261125-sense-comparison.yaml
   - include:
       file: db/changelog/changes/patches/20261127-card-source-place.yaml
+  - include:
+      file: db/changelog/changes/patches/20261127-catalog-series.yaml

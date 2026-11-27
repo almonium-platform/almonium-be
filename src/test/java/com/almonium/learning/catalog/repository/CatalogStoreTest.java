@@ -132,6 +132,46 @@ class CatalogStoreTest {
     }
 
     @Test
+    void aSeriesListsItsWorksInReadingOrderAndCountsThem() {
+        List<WorkRow> series = new ArrayList<>();
+        String[][] members = {
+            {"Book 10", "10", "2010"},
+            {"Book 2", "2", "2002"},
+            {"Prequel", "0.5", "2015"},
+            {"Book 1", "1", "2001"},
+            {"Companion", null, "1999"}
+        };
+        for (String[] member : members) {
+            series.add(new WorkRow(
+                    UUID.randomUUID(),
+                    null,
+                    null,
+                    member[0],
+                    null,
+                    null,
+                    Integer.valueOf(member[2]),
+                    "Author",
+                    List.of(),
+                    1,
+                    RightsStatus.PROTECTED,
+                    null,
+                    null,
+                    true,
+                    "Q8337",
+                    "Harry Potter",
+                    member[1]));
+        }
+        store.upsertWorks(series, Instant.now());
+
+        assertThat(store.seriesMembers("Q8337"))
+                .extracting(Hit::title)
+                .containsExactly("Prequel", "Book 1", "Book 2", "Book 10", "Companion");
+        assertThat(store.seriesSizes(List.of("Q8337", "Q0"))).containsExactly(java.util.Map.entry("Q8337", 5));
+        assertThat(store.seriesOf(List.of(series.getFirst().id())))
+                .containsValue(new CatalogStore.SeriesRef("Q8337", "Harry Potter", "10"));
+    }
+
+    @Test
     void findsWorksByAuthorByAnotherLanguagesTitleAndWithoutAccents() {
         assertThat(search("conan doyle")).containsExactly("The Hound of the Baskervilles", "A Study in Scarlet");
         assertThat(search("hund von baskerville")).containsExactly("The Hound of the Baskervilles");

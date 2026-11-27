@@ -21,7 +21,9 @@ import jakarta.persistence.EntityNotFoundException;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -49,6 +51,12 @@ public class CatalogSearchService {
 
     /** Countries named in "already free in". */
     static final int FREE_IN_COUNTRIES = 3;
+
+    /**
+     * The largest series a search folds. Wikidata files 350 Doctor Who books and the whole Sherlock Holmes canon (62)
+     * as series; unfolding those would bury every other hit.
+     */
+    static final int MAX_FOLDED_SERIES = 30;
 
     private final CatalogStore store;
     private final CatalogWorkRepository catalogWorkRepository;
@@ -79,7 +87,53 @@ public class CatalogSearchService {
                 member.orElse(null),
                 searchRequester.of(member.orElse(null)),
                 Instant.now(clock));
-        return decorate(hits, language, member);
+        Map<UUID, CatalogHit.CatalogSeries> series = new HashMap<>();
+        List<Hit> shown = foldSeries(hits, series);
+        return decorate(shown, language, member, loadRightsFacts(shown), series);
+    }
+
+    /**
+     * Where two or more hits belong to one series of at most {@link #MAX_FOLDED_SERIES} works, the whole series takes
+     * the place of its best hit, in reading order, and the rest of its hits drop out. Fills {@code series} for every
+     * work so placed.
+     */
+    List<Hit> foldSeries(List<Hit> hits, Map<UUID, CatalogHit.CatalogSeries> series) {
+        Map<UUID, CatalogStore.SeriesRef> memberships =
+                store.seriesOf(hits.stream().map(Hit::id).toList());
+        Map<String, Long> counts = memberships.values().stream()
+                .collect(Collectors.groupingBy(CatalogStore.SeriesRef::id, Collectors.counting()));
+        Set<String> repeated = counts.entrySet().stream()
+                .filter(entry -> entry.getValue() >= 2)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+        Map<String, Integer> sizes = store.seriesSizes(repeated);
+        Set<String> foldable = repeated.stream()
+                .filter(id -> sizes.getOrDefault(id, 0) <= MAX_FOLDED_SERIES)
+                .collect(Collectors.toSet());
+        if (foldable.isEmpty()) {
+            return hits;
+        }
+        Map<UUID, Hit> placed = new LinkedHashMap<>();
+        for (Hit hit : hits) {
+            CatalogStore.SeriesRef ref = memberships.get(hit.id());
+            if (ref == null || !foldable.contains(ref.id())) {
+                placed.putIfAbsent(hit.id(), hit);
+            } else if (series.values().stream().noneMatch(s -> s.id().equals(ref.id()))) {
+                List<Hit> members = store.seriesMembers(ref.id());
+                Map<UUID, CatalogStore.SeriesRef> places =
+                        store.seriesOf(members.stream().map(Hit::id).toList());
+                for (Hit work : members) {
+                    placed.remove(work.id());
+                    placed.put(work.id(), work);
+                    CatalogStore.SeriesRef place = places.get(work.id());
+                    series.put(
+                            work.id(),
+                            new CatalogHit.CatalogSeries(
+                                    ref.id(), ref.title(), place == null ? null : place.position(), members.size()));
+                }
+            }
+        }
+        return List.copyOf(placed.values());
     }
 
     /**
@@ -167,6 +221,15 @@ public class CatalogSearchService {
 
     private List<CatalogHit> decorate(
             List<Hit> hits, Language language, Optional<UUID> member, Map<UUID, RightsFacts> facts) {
+        return decorate(hits, language, member, facts, Map.of());
+    }
+
+    private List<CatalogHit> decorate(
+            List<Hit> hits,
+            Language language,
+            Optional<UUID> member,
+            Map<UUID, RightsFacts> facts,
+            Map<UUID, CatalogHit.CatalogSeries> series) {
         Map<UUID, Long> readers = Map.of();
         Set<UUID> mine = Set.of();
         if (language != null && !hits.isEmpty()) {
@@ -188,7 +251,8 @@ public class CatalogSearchService {
                         wanted.contains(hit.id()),
                         effectiveCountry,
                         detectedCountry,
-                        facts.get(hit.id())))
+                        facts.get(hit.id()),
+                        series.get(hit.id())))
                 .toList();
     }
 
@@ -205,7 +269,8 @@ public class CatalogSearchService {
             boolean wantedByMe,
             String effectiveCountry,
             String detectedCountry,
-            RightsFacts facts) {
+            RightsFacts facts,
+            CatalogHit.CatalogSeries series) {
         CatalogState state;
         if (hit.workSlug() != null
                 && !bookRepository.findByWorkSlug(hit.workSlug()).isEmpty()) {
@@ -231,6 +296,7 @@ public class CatalogSearchService {
                 facts == null ? null : unlockDates.readerFreeFrom(facts, effectiveCountry),
                 facts == null || state != CatalogState.UNDER_COPYRIGHT
                         ? List.of()
-                        : unlockDates.alreadyFreeIn(facts, effectiveCountry, FREE_IN_COUNTRIES));
+                        : unlockDates.alreadyFreeIn(facts, effectiveCountry, FREE_IN_COUNTRIES),
+                series);
     }
 }

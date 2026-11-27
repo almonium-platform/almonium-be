@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261127-catalog-series
+      author: claude
+      comment: >-
+        The series a catalogue work belongs to, from Wikidata's "part of the series" (P179): the series' Q-id, its
+        name, and the work's place in it as Wikidata writes it ("1", "0.5"). Search folds two or more hits from one
+        series into the whole series in reading order. Filled by the next catalogue import.
+      changes:
+        - addColumn:
+            tableName: catalog_work
+            columns:
+              - column:
+                  name: series_wikidata_id
+                  type: varchar(16)
+              - column:
+                  name: series_title
+                  type: varchar(500)
+              - column:
+                  name: series_position
+                  type: varchar(32)
+        - createIndex:
+            tableName: catalog_work
+            indexName: ix_catalog_work_series
+            columns:
+              - column:
+                  name: series_wikidata_id

@@ -346,4 +346,62 @@ class CatalogSearchServiceTest {
         assertThat(service.search(" ! ", 20)).isEmpty();
         assertThat(service.search("a", 20)).isEmpty();
     }
+
+    static Hit hit(String title, int popularity) {
+        return new Hit(
+                UUID.randomUUID(),
+                title,
+                null,
+                "en",
+                2000,
+                "Author",
+                popularity,
+                null,
+                RightsStatus.PROTECTED,
+                null,
+                1.0);
+    }
+
+    @Test
+    void twoHitsOfOneSeriesUnfoldIntoTheWholeSeriesInReadingOrderWhereTheBestOneStood() {
+        Hit second = hit("Second", 90);
+        Hit other = hit("Other", 80);
+        Hit first = hit("First", 70);
+        Hit big1 = hit("Doctor Who 1", 60);
+        Hit big2 = hit("Doctor Who 2", 50);
+        Hit third = hit("Third", 1);
+        when(store.search("series", 20)).thenReturn(List.of(second, other, first, big1, big2));
+        when(store.seriesOf(any()))
+                .thenReturn(java.util.Map.of(
+                        first.id(), new CatalogStore.SeriesRef("QS", "The Series", "1"),
+                        second.id(), new CatalogStore.SeriesRef("QS", "The Series", "2"),
+                        third.id(), new CatalogStore.SeriesRef("QS", "The Series", "3"),
+                        big1.id(), new CatalogStore.SeriesRef("QWHO", "Doctor Who", null),
+                        big2.id(), new CatalogStore.SeriesRef("QWHO", "Doctor Who", null)));
+        when(store.seriesSizes(any())).thenReturn(java.util.Map.of("QS", 3, "QWHO", 350));
+        when(store.seriesMembers("QS")).thenReturn(List.of(first, second, third));
+
+        List<CatalogHit> hits = service.search("series", 20);
+
+        assertThat(hits)
+                .extracting(CatalogHit::title)
+                .containsExactly("First", "Second", "Third", "Other", "Doctor Who 1", "Doctor Who 2");
+        assertThat(hits.getFirst().series()).isEqualTo(new CatalogHit.CatalogSeries("QS", "The Series", "1", 3));
+        assertThat(hits.get(2).series().position()).isEqualTo("3");
+        assertThat(hits.get(3).series()).isNull();
+        assertThat(hits.get(4).series()).isNull();
+    }
+
+    @Test
+    void aLoneHitOfASeriesStaysAsItIs() {
+        Hit only = hit("Only", 10);
+        when(store.search("only", 20)).thenReturn(List.of(only));
+        when(store.seriesOf(any())).thenReturn(java.util.Map.of(only.id(), new CatalogStore.SeriesRef("QS", "S", "1")));
+
+        List<CatalogHit> hits = service.search("only", 20);
+
+        assertThat(hits).extracting(CatalogHit::title).containsExactly("Only");
+        assertThat(hits.getFirst().series()).isNull();
+        verify(store, never()).seriesMembers(any());
+    }
 }

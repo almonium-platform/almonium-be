@@ -144,7 +144,10 @@ public class CatalogImportService {
                     verdict.status(),
                     verdict.exactYear(),
                     record.publisher,
-                    record.literary));
+                    record.literary,
+                    record.seriesWikidataId,
+                    record.seriesTitle,
+                    record.seriesPosition));
             titles.addAll(titleRows(record));
             for (CatalogRecord.Source source : record.sources) {
                 sources.add(new SourceRow(
@@ -232,6 +235,14 @@ public class CatalogImportService {
             record.literary = work.literary();
             String publisher = snapshot.publisherByWork().get(work.id());
             record.publisher = publisher == null ? null : CatalogRecord.truncate(publisher, 500);
+            WikidataCatalogSource.SeriesMembership series =
+                    snapshot.seriesByWork().get(work.id());
+            if (series != null && series.seriesId().length() <= 16) {
+                record.seriesWikidataId = series.seriesId();
+                record.seriesTitle = CatalogRecord.truncate(series.title(), 500);
+                record.seriesPosition =
+                        series.position() == null ? null : CatalogRecord.truncate(series.position(), 32);
+            }
             for (String authorId : snapshot.authorsByWork().getOrDefault(work.id(), List.of())) {
                 Person person = snapshot.people().get(authorId);
                 if (person != null) {

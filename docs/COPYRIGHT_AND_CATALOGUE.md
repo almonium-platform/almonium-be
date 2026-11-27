@@ -53,6 +53,18 @@ yields to Shelley's novel; demoted, it ranks with the titles that contain the
 query, as does an exact match on any other label. Queries take 10–60 ms on the
 full catalogue, a one-word query like "it" about 180 ms.
 
+Works carry the series Wikidata files them in ("part of the series", P179),
+with their place in it (the P1545 qualifier, as written: "1", "0.5"). A work in
+several series keeps one: one that gives it a place first, then the smallest.
+Series names come from the English label, else the language-neutral `mul`
+label (where Harry Potter's lives), else any. When two or more hits of a search
+belong to one series of at most 30 works
+(`CatalogSearchService.MAX_FOLDED_SERIES`), the whole series takes the place of
+its best hit in reading order (numeric places first, then year), and each of
+those hits carries `series: {id, title, position, size}`; the clients fold such
+a run into one entry. Larger "series" (350 Doctor Who books, the 62-work
+Sherlock Holmes canon) are not folded.
+
 The import runs on the first start against an empty catalogue, on the 2nd of
 every month at 04:30 UTC, and on demand from `POST /ops/catalog/import`. The
 production status of every work is recounted nightly, since it only changes as

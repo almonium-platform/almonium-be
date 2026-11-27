@@ -50,7 +50,45 @@ public class CatalogStore {
             RightsStatus productionStatus,
             Integer productionFreeFrom,
             String publisher,
-            boolean literary) {
+            boolean literary,
+            String seriesWikidataId,
+            String seriesTitle,
+            String seriesPosition) {
+
+        public WorkRow(
+                UUID id,
+                String wikidataId,
+                Integer gutenbergId,
+                String title,
+                String originalTitle,
+                String originalLanguage,
+                Integer publicationYear,
+                String authorDisplay,
+                List<CatalogAuthor> authors,
+                int popularity,
+                RightsStatus productionStatus,
+                Integer productionFreeFrom,
+                String publisher,
+                boolean literary) {
+            this(
+                    id,
+                    wikidataId,
+                    gutenbergId,
+                    title,
+                    originalTitle,
+                    originalLanguage,
+                    publicationYear,
+                    authorDisplay,
+                    authors,
+                    popularity,
+                    productionStatus,
+                    productionFreeFrom,
+                    publisher,
+                    literary,
+                    null,
+                    null,
+                    null);
+        }
 
         public WorkRow(
                 UUID id,
@@ -79,7 +117,10 @@ public class CatalogStore {
                     productionStatus,
                     productionFreeFrom,
                     null,
-                    false);
+                    false,
+                    null,
+                    null,
+                    null);
         }
     }
 
@@ -127,8 +168,8 @@ public class CatalogStore {
         String sql = """
                 insert into catalog_work (id, wikidata_id, gutenberg_id, title, original_title, original_language,
                     publication_year, author_display, authors, popularity, production_status, production_free_from,
-                    updated_at, publisher, literary)
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?, ?)
+                    updated_at, publisher, literary, series_wikidata_id, series_title, series_position)
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 on conflict (id) do update set wikidata_id = excluded.wikidata_id,
                     gutenberg_id = excluded.gutenberg_id, title = excluded.title,
                     original_title = excluded.original_title, original_language = excluded.original_language,
@@ -136,7 +177,9 @@ public class CatalogStore {
                     authors = excluded.authors, popularity = excluded.popularity,
                     production_status = excluded.production_status,
                     production_free_from = excluded.production_free_from, updated_at = excluded.updated_at,
-                    publisher = excluded.publisher, literary = excluded.literary
+                    publisher = excluded.publisher, literary = excluded.literary,
+                    series_wikidata_id = excluded.series_wikidata_id, series_title = excluded.series_title,
+                    series_position = excluded.series_position
                 """;
         Timestamp stamp = Timestamp.from(now);
         for (int from = 0; from < rows.size(); from += BATCH) {
@@ -157,6 +200,9 @@ public class CatalogStore {
                 statement.setTimestamp(13, stamp);
                 statement.setString(14, row.publisher());
                 statement.setBoolean(15, row.literary());
+                statement.setString(16, row.seriesWikidataId());
+                statement.setString(17, row.seriesTitle());
+                statement.setString(18, row.seriesPosition());
             });
         }
     }
@@ -333,6 +379,55 @@ public class CatalogStore {
                         .addValue("limit", limit)
                         .addValue("factor", EXACT_TITLE_POPULARITY_FACTOR),
                 CatalogStore::hit);
+    }
+
+    /** A work's series: its Wikidata id, its name, and the work's place in it as Wikidata writes it. */
+    public record SeriesRef(String id, String title, String position) {}
+
+    /** The series of each of these works that has one. */
+    public Map<UUID, SeriesRef> seriesOf(Collection<UUID> workIds) {
+        Map<UUID, SeriesRef> series = new HashMap<>();
+        if (workIds.isEmpty()) {
+            return series;
+        }
+        named.query("""
+                select id, series_wikidata_id, series_title, series_position from catalog_work
+                where id in (:ids) and series_wikidata_id is not null
+                """, new MapSqlParameterSource("ids", workIds), row -> {
+            series.put(
+                    row.getObject(1, UUID.class), new SeriesRef(row.getString(2), row.getString(3), row.getString(4)));
+        });
+        return series;
+    }
+
+    /** How many catalogue works each of these series holds. */
+    public Map<String, Integer> seriesSizes(Collection<String> seriesIds) {
+        Map<String, Integer> sizes = new HashMap<>();
+        if (seriesIds.isEmpty()) {
+            return sizes;
+        }
+        named.query("""
+                select series_wikidata_id, count(*) from catalog_work
+                where series_wikidata_id in (:ids) group by series_wikidata_id
+                """, new MapSqlParameterSource("ids", seriesIds), row -> {
+            sizes.put(row.getString(1), row.getInt(2));
+        });
+        return sizes;
+    }
+
+    /**
+     * Every work of one series in reading order: by its place when that is a number, then by year, then by title.
+     */
+    public List<Hit> seriesMembers(String seriesId) {
+        return named.query("""
+                select id, title, original_title, original_language, publication_year, author_display, popularity,
+                       work_slug, production_status, production_free_from, 0.0 as score
+                from catalog_work
+                where series_wikidata_id = :id
+                order by case when series_position ~ '^[0-9]{1,9}([.][0-9]{1,9})?$'
+                              then series_position::numeric end nulls last,
+                         publication_year nulls last, title
+                """, new MapSqlParameterSource("id", seriesId), CatalogStore::hit);
     }
 
     /** The facts of every work, for recomputing production status as the years turn. */

@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,11 @@ class WikidataCatalogSourceTest {
     /** One row per query shape, told apart by what each query selects. */
     static byte[] answer(String query) {
         String rows;
-        if (query.contains("?france") && query.contains("P655")) {
+        if (query.contains("pq:P1545")) {
+            rows = "?w\t?s\t?position\n" + E + "Q25338>\t" + E + "Q8337>\t\"2\"\n" + E + "Q25338>\t" + E + "Q100>\t\n";
+        } else if (query.contains("?nameMul") && query.contains("wdt:P179")) {
+            rows = "?s\t?nameEn\t?nameMul\t?nameAny\n" + E + "Q8337>\t\t\"Harry Potter\"@mul\t\"Гаррі Поттер\"@uk\n";
+        } else if (query.contains("?france") && query.contains("P655")) {
             rows = "?a\t?nameEn\t?nameMul\t?nameAny\t?b\t?d\t?france\n" + E
                     + "Q99>\t\"Katherine Woods\"@en\t\t\t1886\t1968\t0\n";
         } else if (query.contains("SELECT DISTINCT ?e ?a")) {
@@ -125,7 +130,7 @@ class WikidataCatalogSourceTest {
         var snapshot = source().fetch();
 
         assertThat(snapshot.works()).containsKey("Q25338");
-        assertThat(requests.get()).isEqualTo(14 + 2);
+        assertThat(requests.get()).isEqualTo(16 + 2);
     }
 
     @Test
@@ -133,5 +138,36 @@ class WikidataCatalogSourceTest {
         refusals.addAll(List.of(429, 429, 429));
 
         assertThatThrownBy(() -> source().fetch()).hasMessageContaining("429");
+    }
+
+    @Test
+    void readsTheSeriesAWorkIsPartOfNamedByItsLanguageNeutralLabel() {
+        WikidataCatalogSource.Snapshot snapshot = source().fetch();
+        // Q100 has no name, so the work keeps the named series.
+        assertThat(snapshot.seriesByWork())
+                .containsEntry("Q25338", new WikidataCatalogSource.SeriesMembership("Q8337", "Harry Potter", "2"));
+    }
+
+    @Test
+    void aWorkInSeveralSeriesKeepsOneWithAPlaceThenTheSmallest() {
+        var canon = new WikidataCatalogSource.SeriesMembership("QCANON", null, null);
+        var collection = new WikidataCatalogSource.SeriesMembership("QCOLL", null, "3");
+        var big = new WikidataCatalogSource.SeriesMembership("QBIG", null, "1");
+        var small = new WikidataCatalogSource.SeriesMembership("QSMALL", null, "1");
+        Map<String, String> names = Map.of("QCANON", "Canon", "QCOLL", "Collection", "QBIG", "Big", "QSMALL", "Small");
+
+        var chosen = WikidataCatalogSource.chooseSeries(
+                Map.of(
+                        "story", List.of(canon, collection),
+                        "other", List.of(canon),
+                        "a", List.of(big, small),
+                        "b", List.of(big),
+                        "c", List.of(big)),
+                names);
+
+        assertThat(chosen.get("story").seriesId()).isEqualTo("QCOLL");
+        assertThat(chosen.get("story").title()).isEqualTo("Collection");
+        assertThat(chosen.get("other").seriesId()).isEqualTo("QCANON");
+        assertThat(chosen.get("a").seriesId()).isEqualTo("QSMALL");
     }
 }

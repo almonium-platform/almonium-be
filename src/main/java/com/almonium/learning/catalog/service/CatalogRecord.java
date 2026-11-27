@@ -18,6 +18,9 @@ final class CatalogRecord {
     int popularity;
     String publisher;
     boolean literary;
+    String seriesWikidataId;
+    String seriesTitle;
+    String seriesPosition;
     final List<Title> titles = new ArrayList<>();
     final List<Source> sources = new ArrayList<>();
 

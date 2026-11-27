@@ -60,6 +60,35 @@ class CatalogImportServiceTest {
     }
 
     @Test
+    void aWorkKeepsTheSeriesWikidataPlacesItIn() {
+        Snapshot base = snapshot();
+        Snapshot withSeries = new Snapshot(
+                base.works(),
+                base.authorsByWork(),
+                base.people(),
+                base.labelsByWork(),
+                base.gutenbergByWork(),
+                Map.of(),
+                Map.of(),
+                Map.of("Q8337", new WikidataCatalogSource.SeriesMembership("Q2316684", "Sherlock Holmes", "1")));
+
+        var records = CatalogImportService.fromWikidata(withSeries, Map.of());
+
+        var study = records.stream()
+                .filter(r -> r.wikidataId.equals("Q8337"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(study.seriesWikidataId).isEqualTo("Q2316684");
+        assertThat(study.seriesTitle).isEqualTo("Sherlock Holmes");
+        assertThat(study.seriesPosition).isEqualTo("1");
+        var prince = records.stream()
+                .filter(r -> r.wikidataId.equals("Q25338"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(prince.seriesWikidataId).isNull();
+    }
+
+    @Test
     void aGutenbergIdTwoWorksClaimStaysWithTheBetterKnownOne() {
         var records = CatalogImportService.fromWikidata(snapshot(), Map.of());
 
