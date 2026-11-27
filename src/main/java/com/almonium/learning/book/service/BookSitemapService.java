@@ -24,7 +24,7 @@ import org.springframework.web.util.HtmlUtils;
  * <p>A crawler is served the last document built, never one built while it waits: {@link #refresh()} rebuilds it on
  * a schedule (SitemapRefreshTask), and only the first request after a start without one builds it inline. A
  * rebuild the processor cannot answer keeps the last good document; with none yet, books are listed without their
- * chapters until the next rebuild. Withdrawn books never appear, since the entity hides them from every query.
+ * chapters and the task tries again within minutes. Withdrawn books never appear, since the entity hides them from every query.
  */
 @Slf4j
 @Service
@@ -46,6 +46,12 @@ public class BookSitemapService {
     public String sitemap() {
         Built built = latest.get();
         return built != null ? built.xml() : refresh();
+    }
+
+    /** Whether the document served lists the processor's chapters; false before the first build too. */
+    public boolean hasChapters() {
+        Built built = latest.get();
+        return built != null && built.withChapters();
     }
 
     /** Rebuilds the document; returns what is served afterwards. */
