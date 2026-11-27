@@ -44,6 +44,13 @@ public class CardCreationDto {
     /** The library edition the word was met in, sent by the reader and by nothing else. */
     UUID sourceBookId;
 
+    /** That edition's title and the chapter the word was met in, for the line that says where a word came from. */
+    @jakarta.validation.constraints.Size(max = 500)
+    String sourceBookTitle;
+
+    @jakarta.validation.constraints.Min(0)
+    Integer sourceChapter;
+
     Set<LearningIntent> learningIntents;
     TagDto[] tags;
     ExampleDto[] examples;

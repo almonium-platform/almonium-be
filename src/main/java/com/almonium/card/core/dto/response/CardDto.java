@@ -38,6 +38,8 @@ public class CardDto {
     String selectedSense;
     UUID senseKey;
     String sourceContext;
+    String sourceBookTitle;
+    Integer sourceChapter;
     Set<LearningIntent> learningIntents;
 
     @NotBlank

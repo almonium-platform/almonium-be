@@ -88,6 +88,12 @@ public class LearningItem {
     /** The library edition the word was met in, when it was saved from the reader; what a certificate counts. */
     UUID sourceBookId;
 
+    /** The book's title as the reader saw it when the word was saved, so the word can say where it came from. */
+    String sourceBookTitle;
+
+    /** The chapter the word was met in, as the reader numbers it; null when it was saved outside a book. */
+    Integer sourceChapter;
+
     @Builder.Default
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "learning_item_intent", joinColumns = @JoinColumn(name = "learning_item_id"))

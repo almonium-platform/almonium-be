@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261127-card-source-place
+      author: claude
+      comment: >-
+        A saved word remembers the book and chapter it was met in, so Home can say "Die Verwandlung, chapter 3"
+        under it. The title is kept as the reader saw it; source_book_id stays what a certificate counts.
+      changes:
+        - addColumn:
+            tableName: card
+            columns:
+              - column:
+                  name: source_book_title
+                  type: varchar(500)
+              - column:
+                  name: source_chapter
+                  type: int
