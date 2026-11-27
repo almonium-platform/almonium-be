@@ -3,6 +3,11 @@
 **Date:** 2026-07-28
 **Principle:** free where cost is amortised, paid where cost scales per user.
 
+> This file explains *why* things are free or paid. The tier tables below are
+> the July 2026 plan. What each kind of visitor (signed out, Free, Premium) can
+> actually do today, and where the code differs from this plan, is in
+> [ACCESS_MATRIX.md](ACCESS_MATRIX.md). Treat the matrix as the source of truth.
+
 ---
 
 ## The rule that decides everything
