@@ -206,8 +206,10 @@ external.api:
     wordnik: ${WORDNIK_KEY}
     yandex: ${YANDEX_KEY}
 
-# Cover art: period illustrations from Wikimedia Commons, filtered by a licence rule and picked by a vision model
-# through OpenRouter. Without a key nothing is fetched and every book keeps its typographic cover.
+# Cover art: period illustrations from Wikimedia Commons, filtered by a licence rule here and picked by a vision
+# model. The pick is made on the owner's plan by scripts/covers/choose_covers.py through /internal/covers. Setting
+# COVER_API_JUDGE=true makes this service ask OpenRouter itself each night instead, paid by the call.
 covers:
+  api-judge: ${COVER_API_JUDGE:false}
   api-key: ${OPENROUTER_API_KEY:}
   model: ${COVER_MODEL:anthropic/claude-sonnet-5.5}

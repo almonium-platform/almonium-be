@@ -1,6 +1,8 @@
 package com.almonium.learning.cover.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
@@ -17,6 +19,9 @@ import com.almonium.learning.catalog.repository.CatalogWorkRepository;
 import com.almonium.learning.cover.client.CommonsClient;
 import com.almonium.learning.cover.client.CommonsClient.CommonsFile;
 import com.almonium.learning.cover.client.CoverJudge;
+import com.almonium.learning.cover.dto.CoverCandidate;
+import com.almonium.learning.cover.dto.CoverCandidates;
+import com.almonium.learning.cover.dto.CoverDecision;
 import com.almonium.learning.cover.model.CoverStatus;
 import com.almonium.learning.cover.model.WorkCover;
 import com.almonium.learning.cover.repository.WorkCoverRepository;
@@ -43,6 +48,7 @@ class CoverServiceTest {
     @BeforeEach
     void aBookLinkedToTheCatalogue() {
         properties.setApiKey("key");
+        properties.setApiJudge(true);
         Book book = new Book();
         book.setTitle("Frankenstein");
         book.setAuthor("Mary Shelley");
@@ -57,7 +63,7 @@ class CoverServiceTest {
         return new CommonsFile(
                 title,
                 "https://commons.wikimedia.org/wiki/" + title,
-                "https://upload.wikimedia.org/" + title,
+                "https://upload.wikimedia.org/" + title.replace(' ', '_'),
                 mime,
                 1200,
                 1800,
@@ -129,11 +135,59 @@ class CoverServiceTest {
     }
 
     @Test
-    void withoutAKeyNothingIsLookedFor() {
-        properties.setApiKey("");
+    void unlessToldToJudgeFromHereNothingIsBoughtAndThePlanScriptChooses() {
+        properties.setApiJudge(false);
+        when(covers.workSlugs()).thenReturn(List.of());
+        when(books.findWorkSlugs()).thenReturn(List.of("frankenstein"));
 
         assertThat(service.prepareMissing()).isZero();
+        assertThat(service.pending()).containsExactly("frankenstein");
 
         verify(commons, never()).filesFor(any());
+        verify(judge, never()).choose(any(), any(), anyList());
+    }
+
+    @Test
+    void anOutsideJudgeIsOfferedOnlyWhatPassesTheLicenceRule() {
+        properties.setApiJudge(false);
+        when(commons.filesFor("Q150827"))
+                .thenReturn(List.of(
+                        file("File:Poster 1931.jpg", "image/jpeg", true, "PD US"),
+                        file("File:Frontispiece 1831.jpg", "image/jpeg", false, "PD Old")));
+
+        CoverCandidates offered = service.candidates("frankenstein");
+
+        assertThat(offered.title()).isEqualTo("Frankenstein");
+        assertThat(offered.candidates())
+                .extracting(CoverCandidate::title, CoverCandidate::licenceBasis)
+                .containsExactly(tuple("File:Frontispiece 1831.jpg", "PD Old"));
+    }
+
+    @Test
+    void anOutsideDecisionIsFetchedFromCommonsHereAndNeverFromAnotherHost() {
+        CoverCandidate chosen = new CoverCandidate(
+                "File:Frontispiece 1831.jpg",
+                "https://commons.wikimedia.org/wiki/File:Frontispiece_1831.jpg",
+                "https://thumb.wikimedia.org/wikipedia/commons/thumb/f.jpg",
+                "image/jpeg",
+                "Theodor von Holst",
+                "Public domain",
+                "PD Old");
+        when(commons.download(chosen.imageUrl())).thenReturn(new byte[] {7});
+
+        assertThat(service.decide(new CoverDecision("frankenstein", chosen, 45, 20, "The creature.", "plan")))
+                .isEqualTo(CoverStatus.APPROVED);
+        assertThat(saved().getImage()).containsExactly(7);
+
+        CoverCandidate elsewhere = new CoverCandidate(
+                "File:x.jpg",
+                "https://example.com/x",
+                "https://upload.wikimedia.org.example.com/x.jpg",
+                "image/jpeg",
+                "",
+                "",
+                "PD Old");
+        assertThatThrownBy(() -> service.decide(new CoverDecision("frankenstein", elsewhere, 50, 50, "", "plan")))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

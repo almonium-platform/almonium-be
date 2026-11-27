@@ -11,8 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * Cover art from Wikimedia Commons: who looks at the candidates, and how old an artist's death must be before a file
- * is taken. Without a key nothing is fetched or judged, and every book keeps its typographic cover.
+ * Cover art from Wikimedia Commons: how old an artist's death must be before a file is taken, and who looks at the
+ * candidates. By default nobody here does: the choice is made on the owner's plan by
+ * {@code scripts/covers/choose_covers.py}, which asks this service for the candidates and hands back its pick.
+ * {@code api-judge} makes this service ask a vision model itself, paid by the call.
  */
 @Getter
 @Setter
@@ -20,7 +22,10 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "covers")
 @FieldDefaults(level = PRIVATE)
 public class CoverProperties {
-    /** An OpenRouter key; blank turns the whole feature off. */
+    /** Ask a vision model from here, through OpenRouter, each night and from /ops. Off: the plan script chooses. */
+    boolean apiJudge = false;
+
+    /** An OpenRouter key, for {@code api-judge}. */
     String apiKey = "";
 
     @NotBlank
@@ -46,7 +51,7 @@ public class CoverProperties {
     @NotBlank
     String userAgent = "Almonium/1.0 (https://almonium.com)";
 
-    public boolean enabled() {
-        return apiKey != null && !apiKey.isBlank();
+    public boolean judgesHere() {
+        return apiJudge && apiKey != null && !apiKey.isBlank();
     }
 }
