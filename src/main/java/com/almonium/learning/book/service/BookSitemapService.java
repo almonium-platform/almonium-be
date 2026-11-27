@@ -1,13 +1,14 @@
 package com.almonium.learning.book.service;
 
 import com.almonium.config.properties.AppProperties;
-import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.rights.model.entity.WorkRightsBlock;
 import com.almonium.learning.rights.service.WorkRightsService;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,8 +19,12 @@ import org.springframework.web.util.HtmlUtils;
 /**
  * The sitemap a search engine reads (docs/SEO.md in the frontend): the public pages, every catalogue book and each
  * of its chapters, on the app's own domain. Chapter URLs carry the processor's sequence, which need not run 1..n,
- * so each book's chapters are asked of the processor; a book whose chapters it cannot give lists its page only.
- * Withdrawn books never appear, since the entity hides them from every query.
+ * so the sequences of every published edition are asked of the processor in one call.
+ *
+ * <p>A crawler is served the last document built, never one built while it waits: {@link #refresh()} rebuilds it on
+ * a schedule (SitemapRefreshTask), and only the first request after a start without one builds it inline. A
+ * rebuild the processor cannot answer keeps the last good document; with none yet, books are listed without their
+ * chapters until the next rebuild. Withdrawn books never appear, since the entity hides them from every query.
  */
 @Slf4j
 @Service
@@ -35,7 +40,36 @@ public class BookSitemapService {
     AppProperties appProperties;
     WorkRightsService workRightsService;
 
+    /** The last document built with the processor's chapters, or one without them if none has been yet. */
+    AtomicReference<Built> latest = new AtomicReference<>();
+
     public String sitemap() {
+        Built built = latest.get();
+        return built != null ? built.xml() : refresh();
+    }
+
+    /** Rebuilds the document; returns what is served afterwards. */
+    public String refresh() {
+        Map<String, List<Integer>> sequences;
+        try {
+            sequences = publishedBookContentService.chapterSequences();
+        } catch (RuntimeException unavailable) {
+            Built previous = latest.get();
+            if (previous != null && previous.withChapters()) {
+                log.warn("Sitemap keeps its last build; processor chapters unavailable: {}", unavailable.getMessage());
+                return previous.xml();
+            }
+            log.warn("Sitemap lists books without chapters; processor unavailable: {}", unavailable.getMessage());
+            String xml = build(Map.of());
+            latest.set(new Built(xml, false));
+            return xml;
+        }
+        String xml = build(sequences);
+        latest.set(new Built(xml, true));
+        return xml;
+    }
+
+    private String build(Map<String, List<Integer>> sequences) {
         StringBuilder xml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
                 .append("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
         STATIC_PATHS.forEach(path -> appendUrl(xml, path));
@@ -47,25 +81,17 @@ public class BookSitemapService {
                 .forEach(book -> {
                     String bookPath = "/books/" + book.getEditionSlug();
                     appendUrl(xml, bookPath);
-                    chapterSequences(book).forEach(sequence -> appendUrl(xml, bookPath + "/" + sequence));
+                    sequences.getOrDefault(book.getEditionSlug(), List.of()).stream()
+                            .sorted()
+                            .forEach(sequence -> appendUrl(xml, bookPath + "/" + sequence));
                 });
         return xml.append("</urlset>\n").toString();
-    }
-
-    private List<Integer> chapterSequences(Book book) {
-        try {
-            return publishedBookContentService.chaptersFor(book).stream()
-                    .map(BookChapter::sequence)
-                    .sorted()
-                    .toList();
-        } catch (RuntimeException unavailable) {
-            log.warn("Sitemap lists {} without chapters: {}", book.getEditionSlug(), unavailable.getMessage());
-            return List.of();
-        }
     }
 
     private void appendUrl(StringBuilder xml, String path) {
         String location = "/".equals(path) ? appProperties.getWebDomain() + "/" : appProperties.getWebDomain() + path;
         xml.append("  <url><loc>").append(HtmlUtils.htmlEscape(location)).append("</loc></url>\n");
     }
+
+    private record Built(String xml, boolean withChapters) {}
 }

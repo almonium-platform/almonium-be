@@ -50,6 +50,7 @@ app:
   books:
     publisher-secret: test-books-publisher-secret
     processor-url: https://books.example.test/api/v1
+    sitemap-scheduled: false
     translation-budget-usd: 150
 
 rabbitmq:

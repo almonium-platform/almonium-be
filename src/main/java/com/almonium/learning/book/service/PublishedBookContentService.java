@@ -6,8 +6,11 @@ import com.almonium.learning.book.model.entity.Book;
 import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +36,19 @@ public class PublishedBookContentService {
         }
         if (chapters == null) throw new IllegalStateException("Published edition has no chapter response");
         return List.of(chapters);
+    }
+
+    /** Every published edition's chapter sequences by edition slug, in one processor call. */
+    public Map<String, List<Integer>> chapterSequences() {
+        Map<String, List<Integer>> sequences = restTemplate
+                .exchange(
+                        processorUrl + "/public/editions/chapter-sequences/",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<Map<String, List<Integer>>>() {})
+                .getBody();
+        if (sequences == null) throw new IllegalStateException("Processor returned no chapter sequences");
+        return sequences;
     }
 
     public ChapterVocabulary vocabularyFor(Book book, int chapterSequence) {
