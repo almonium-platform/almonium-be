@@ -577,8 +577,35 @@ def split_frames(lang, lexeme):
                 elif text not in out:
                     out.append(text)
             if out:
-                sense[key] = out
+                sense[key] = out[:5] if key == "frames" else out
     return split
+
+
+# Sub-region UN M.49 codes writers occasionally emit that map to one of the 9 areas the
+# backend and clients list in EntrySchema.UN_REGIONS / UN_AREAS.
+UN_SUBREGION_FALLBACK = {"034": "142", "030": "142", "035": "142", "143": "142", "145": "142"}
+
+
+def normalize_regions(lang, lexeme):
+    """Map unsupported UN M.49 sub-regions (e.g. en-034 Southern Asia) to their parent area (en-142)."""
+    for sense in lexeme.get("senses") or []:
+        regions = sense.get("regions") or []
+        if not regions:
+            continue
+        out = []
+        seen = set()
+        for item in regions:
+            tag = item.get("variety") if isinstance(item, dict) else item
+            if isinstance(tag, str) and "-" in tag:
+                prefix, area = tag.split("-", 1)
+                if prefix == lang and area in UN_SUBREGION_FALLBACK:
+                    mapped = f"{prefix}-{UN_SUBREGION_FALLBACK[area]}"
+                    item = {**item, "variety": mapped} if isinstance(item, dict) else mapped
+            key = (item.get("variety"), item.get("extent")) if isinstance(item, dict) else item
+            if key not in seen:
+                seen.add(key)
+                out.append(item)
+        sense["regions"] = out
 
 
 def _is_head(lemma, token):
@@ -791,6 +818,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), set
         choices += split_frames(lang, lexeme)
         company += sort_frames(lang, lexeme)
         read_frames(lang, lexeme)
+        normalize_regions(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
