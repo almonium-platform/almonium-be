@@ -9,11 +9,14 @@ import jakarta.validation.constraints.Size;
 
 /**
  * A report against a book. A guest must leave an email so /ops can answer; a member's account address is used
- * otherwise. {@code country} is the country the report is about (ISO alpha-2), blank for everywhere.
+ * otherwise. {@code country} is the country the report is about (ISO alpha-2), blank for everywhere. A report may be
+ * about the cover image instead of the text; that one is settled by taking the cover down, not the book.
  */
 public record RightsReportRequest(
         @NotNull ReporterRole role,
         @Size(max = 200) String name,
         @Email @Size(max = 320) String email,
         @Pattern(regexp = "^$|^[A-Za-z]{2}$") String country,
-        @NotBlank @Size(min = 10, max = 4000) String message) {}
+        @NotBlank @Size(min = 10, max = 4000) String message,
+        /** True when the report is about the cover image and not the book's text; absent means the text. */
+        Boolean aboutCover) {}

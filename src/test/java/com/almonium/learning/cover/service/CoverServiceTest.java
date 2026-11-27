@@ -79,7 +79,7 @@ class CoverServiceTest {
                 .thenReturn(List.of(
                         file("File:Scan.djvu", "image/vnd.djvu", false, "PD-old-100-expired"),
                         file("File:Poster 1931.jpg", "image/jpeg", true, "PD US"),
-                        file("File:Recent.jpg", "image/jpeg", false, "PD-old-70-expired"),
+                        file("File:Recent.jpg", "image/jpeg", false, "PD US expired"),
                         file("File:Title page.jpg", "image/jpeg", false, "PD-old-100-expired"),
                         file("File:Frontispiece 1831.jpg", "image/jpeg", false, "PD-Art (PD-old-100)")));
         when(commons.download(any())).thenReturn(new byte[] {1, 2, 3});

@@ -60,7 +60,8 @@ class RightsReportServiceTest {
                         "Gallimard",
                         "rights@example.fr",
                         "fr",
-                        "Le Petit Prince is still protected in France."),
+                        "Le Petit Prince is still protected in France.",
+                        null),
                 null);
 
         ArgumentCaptor<RightsReport> saved = ArgumentCaptor.forClass(RightsReport.class);
@@ -81,7 +82,7 @@ class RightsReportServiceTest {
         service.report(
                 "the-little-prince-en",
                 new RightsReportRequest(
-                        ReporterRole.OTHER, null, "someone@example.com", null, "A guest reporting this."));
+                        ReporterRole.OTHER, null, "someone@example.com", null, "A guest reporting this.", null));
 
         ArgumentCaptor<RightsReport> saved = ArgumentCaptor.forClass(RightsReport.class);
         verify(reports).save(saved.capture());
@@ -93,7 +94,7 @@ class RightsReportServiceTest {
     void aGuestWithoutAnEmailIsAskedForOne() {
         assertThatThrownBy(() -> service.report(
                         "the-little-prince-en",
-                        new RightsReportRequest(ReporterRole.READER, null, " ", null, "This should not be here."),
+                        new RightsReportRequest(ReporterRole.READER, null, " ", null, "This should not be here.", null),
                         null))
                 .isInstanceOf(BadUserRequestActionException.class);
         verify(reports, never()).save(any());
@@ -107,7 +108,7 @@ class RightsReportServiceTest {
 
         service.report(
                 "the-little-prince-en",
-                new RightsReportRequest(ReporterRole.READER, null, null, "", "Not public domain where I live."),
+                new RightsReportRequest(ReporterRole.READER, null, null, "", "Not public domain where I live.", null),
                 member);
 
         ArgumentCaptor<RightsReport> saved = ArgumentCaptor.forClass(RightsReport.class);

@@ -5,6 +5,7 @@ import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.catalog.model.entity.CatalogWork;
 import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogWorkRepository;
+import com.almonium.learning.cover.service.CoverService;
 import com.almonium.learning.rights.dto.request.RightsOverrideRequest;
 import com.almonium.learning.rights.dto.response.RightsOverrideRow;
 import com.almonium.learning.rights.dto.response.RightsReportRow;
@@ -52,6 +53,7 @@ public class RightsOperationsService {
     private final BookRepository bookRepository;
     private final CatalogWorkRepository catalogWorkRepository;
     private final CatalogStore catalogStore;
+    private final CoverService coverService;
     private final Clock clock;
 
     @Transactional(readOnly = true)
@@ -68,6 +70,15 @@ public class RightsOperationsService {
     public RightsReportRow dismiss(User operator, UUID reportId) {
         RightsReport report = report(reportId);
         settle(report, operator, RightsReportStatus.DISMISSED);
+        return toRow(report);
+    }
+
+    /** A report about a cover image is settled by taking the image down; the book itself stays on the shelf. */
+    @Transactional
+    public RightsReportRow takeCoverDown(User operator, UUID reportId) {
+        RightsReport report = report(reportId);
+        coverService.reject(report.getWorkSlug());
+        settle(report, operator, RightsReportStatus.ACTIONED);
         return toRow(report);
     }
 
@@ -225,6 +236,7 @@ public class RightsOperationsService {
                 report.getCountry(),
                 report.getDetectedCountry(),
                 report.getMessage(),
+                report.isAboutCover(),
                 report.getStatus(),
                 report.getCreatedAt(),
                 report.getHandledAt());

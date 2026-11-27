@@ -29,6 +29,14 @@ class CoverLicenceTest {
     }
 
     @Test
+    void readsThePlainTagAsSeventyYearsAndAnAssumedOneAsNothing() {
+        assertThat(CoverLicence.basis(List.of("CC-PD-Mark", "PD Old"), 70)).contains("PD Old");
+        assertThat(CoverLicence.basis(List.of("PD Old"), 100)).isEmpty();
+        assertThat(CoverLicence.basis(List.of("PD Old (assumed)", "PD-old missing SDC copyright status"), 70))
+                .isEmpty();
+    }
+
+    @Test
     void takesAFileGivenToThePublicDomainByItsMaker() {
         assertThat(CoverLicence.basis(List.of("CC-zero"), 100)).contains("CC-zero");
     }

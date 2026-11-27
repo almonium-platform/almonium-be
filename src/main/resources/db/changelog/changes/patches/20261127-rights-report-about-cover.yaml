@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261127-rights-report-about-cover
+      author: claude
+      comment: >-
+        A rights report can be about a work's cover image instead of its text. Such a report is settled by taking
+        the cover down, which leaves the book on the shelf with its typographic cover.
+      changes:
+        - addColumn:
+            tableName: rights_report
+            columns:
+              - column:
+                  name: about_cover
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

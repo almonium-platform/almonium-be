@@ -77,6 +77,7 @@ public class RightsReportService {
                         : request.country().toUpperCase(Locale.ROOT));
         report.setDetectedCountry(readerLocation.detectedCountry().orElse(null));
         report.setMessage(request.message().trim());
+        report.setAboutCover(Boolean.TRUE.equals(request.aboutCover()));
         report.setStatus(RightsReportStatus.OPEN);
         RightsReport saved = reportRepository.save(report);
         notifyMailbox(saved, book);
@@ -86,7 +87,8 @@ public class RightsReportService {
     private void notifyMailbox(RightsReport report, Book book) {
         String text = String.join(
                 "\n",
-                "A " + report.getReporterRole().name().toLowerCase(Locale.ROOT).replace('_', ' ') + " reported \""
+                "A " + report.getReporterRole().name().toLowerCase(Locale.ROOT).replace('_', ' ') + " reported "
+                        + (report.isAboutCover() ? "the cover image of \"" : "\"")
                         + book.getTitle() + "\" by " + book.getAuthor() + " (" + book.getEditionSlug() + ").",
                 "About: " + (report.getCountry() == null ? "everywhere" : report.getCountry()) + ". Sent from: "
                         + (report.getDetectedCountry() == null ? "unknown" : report.getDetectedCountry()) + ".",
@@ -99,7 +101,7 @@ public class RightsReportService {
         try {
             emailService.sendEmail(new EmailDto(
                     copyrightAddress,
-                    "Rights report: " + book.getTitle(),
+                    (report.isAboutCover() ? "Cover report: " : "Rights report: ") + book.getTitle(),
                     "<pre style=\"font-family:inherit;white-space:pre-wrap\">" + HtmlUtils.htmlEscape(text) + "</pre>",
                     text));
         } catch (RuntimeException exception) {

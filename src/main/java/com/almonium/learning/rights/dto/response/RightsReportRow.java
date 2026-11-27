@@ -17,6 +17,7 @@ public record RightsReportRow(
         String country,
         String detectedCountry,
         String message,
+        boolean aboutCover,
         RightsReportStatus status,
         Instant createdAt,
         Instant handledAt) {}

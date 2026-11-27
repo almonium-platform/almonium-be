@@ -32,14 +32,15 @@ public class CoverProperties {
 
     /**
      * A file is taken only when Commons marks its author as dead at least this long (PD-old-N) or the file as CC0.
-     * A hundred years clears every copyright term in force anywhere.
+     * Seventy years is the term where editions are made and in most of the world, and the bar the texts themselves
+     * are published under; a hundred would clear every term in force anywhere and leave most books without art.
      */
     @Min(70)
-    int minYearsSinceDeath = 100;
+    int minYearsSinceDeath = 70;
 
     /** How many candidates that pass the licence rule are shown to the model for one book. */
     @Min(1)
-    int maxCandidates = 8;
+    int maxCandidates = 12;
 
     /** Commons asks automated clients to say who they are. */
     @NotBlank

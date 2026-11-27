@@ -46,6 +46,13 @@ public class OperationsRightsController {
         return ResponseEntity.ok(rightsOperationsService.dismiss(operator, id));
     }
 
+    /** Settles a report about a cover image: the image comes down and the work keeps its typographic cover. */
+    @PostMapping("/reports/{id}/cover-takedown")
+    @RequireRecentLogin
+    public ResponseEntity<RightsReportRow> takeCoverDown(@Auth User operator, @PathVariable UUID id) {
+        return ResponseEntity.ok(rightsOperationsService.takeCoverDown(operator, id));
+    }
+
     @PostMapping("/overrides")
     @RequireRecentLogin
     public ResponseEntity<RightsOverrideRow> override(

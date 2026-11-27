@@ -27,10 +27,10 @@ public class CommonsClient {
     /** A width Commons serves ready-made: enough for a cover on a dense screen, light enough for a shelf of them. */
     private static final int WIDTH = 500;
 
-    private static final int CATEGORY_FILES = 50;
-    private static final int SUBCATEGORIES = 6;
-    private static final int SUBCATEGORY_FILES = 20;
-    private static final int MAX_FILES = 100;
+    private static final int CATEGORY_FILES = 200;
+    private static final int SUBCATEGORIES = 12;
+    private static final int SUBCATEGORY_FILES = 50;
+    private static final int MAX_FILES = 300;
     private static final int BATCH = 20;
 
     private final RestTemplate restTemplate;

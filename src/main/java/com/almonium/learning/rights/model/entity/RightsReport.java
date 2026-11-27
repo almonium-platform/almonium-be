@@ -66,6 +66,9 @@ public class RightsReport {
     /** The country the report is about, as the reporter names it; null for everywhere. */
     String country;
 
+    /** The report is about the cover image, not the text: settled by taking the cover down, not the book. */
+    boolean aboutCover;
+
     /** The country the report was sent from, as the request's address places it. */
     String detectedCountry;
 
