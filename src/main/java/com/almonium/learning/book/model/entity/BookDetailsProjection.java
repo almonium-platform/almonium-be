@@ -27,6 +27,9 @@ public interface BookDetailsProjection {
 
     CEFR getCefrLevel();
 
+    /** The level is a stand-in until the processor judges it. */
+    Boolean getLevelProvisional();
+
     /** The work's adaptation floor, as the processor found it; null until a level is reached. */
     CEFR getAdaptsTo();
 

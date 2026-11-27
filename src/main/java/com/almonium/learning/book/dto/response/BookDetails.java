@@ -26,6 +26,8 @@ public class BookDetails {
     Integer wordCount;
     Language language;
     CEFR cefrLevel;
+    /** Nobody has judged the level yet: the text went to the shelf as it arrived, and {@code cefrLevel} is a stand-in. */
+    boolean levelProvisional;
     /** The work's adaptation floor, as the processor found it; null until a level is reached. */
     CEFR adaptsTo;
 

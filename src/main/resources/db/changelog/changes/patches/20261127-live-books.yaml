@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261127-live-books
+      author: claude
+      comment: >-
+        A book a reader asked for and read as it arrived: its level is a provisional one until the
+        processor publishes it again with a judged level. The preparation keeps the slug of the
+        edition the processor made, so the reader who waited can be sent to the book.
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: level_provisional
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: preparation
+            columns:
+              - column:
+                  name: edition_slug
+                  type: varchar(255)

@@ -301,6 +301,58 @@ shelf), counted in order from the pipeline stages the processor reports. A
 source under copyright cannot be chosen; the processor checks the rights
 again before any paid step.
 
+## Reading a book now (live)
+
+Added 2026-11-27. A reader can open a catalogue work that is not on the shelf
+and read its original within the minute: `POST /books/live {catalogWorkId,
+sourceDownloadUrl?}` (`LiveBookService`). This deployment's processor fetches
+the text with the reader waiting, and the unadapted original goes on the shelf
+for everyone as soon as its sentences are split. Levels, word explanations and
+translations still come the slow way.
+
+- **Which text.** Only a source that is FREE where we make books (an UNKNOWN
+  one needs the human check /ops is), from a library whose file the processor
+  fetches (`LiveBookService.FETCHED`: Gutenberg, Standard Ebooks, Wolne
+  Lektury, Wikisource), in a language the product has. Without
+  `sourceDownloadUrl` it is the original's best text in the catalogue's order,
+  a library's ready file before Wikisource's export (built on request, a
+  minute for a long book), and up to three more of the same language stand by
+  (`FALLBACKS`): the processor takes the next when a library is down or its
+  file cannot become a book. A text the reader chose stands alone.
+- **Who.** Never for a reader whose country still protects the work
+  (`UnlockDates.in`), and a work with no known publication year is left to be
+  wanted, since it could not be published.
+- **One book, one wait.** A work on the shelf in that language answers READY
+  at once. A preparation under way is joined, whoever started it: ARRIVING for
+  a live one, BEING_PREPARED for the factory's or /ops's. A failed one is
+  started over with a new id at the processor.
+- **Limits.** One book arriving per reader, `app.books.live.max-at-once` (4)
+  for everybody, `app.books.live.daily-limit` (5) a reader a day
+  (`LiveBookLimiter`, in memory). All three answer 429 with a sentence for the
+  reader. A book that never finishes stops counting after 15 minutes
+  (`LiveBookService.ARRIVAL`).
+- **Watching.** The answer is `LiveBook`: `state` ARRIVING, READY, FAILED or
+  BEING_PREPARED; while ARRIVING a `step` of FETCHING, CHAPTERS, SENTENCES or
+  SHELVING; `editionSlug` once READY; `error` when FAILED; and the library the
+  text came from. The client asks `GET /books/live/{preparationId}` about once
+  a second; the backend asks the processor unless it did within the second
+  (`PreparationService.watch`), and the three-minute poll covers a wait nobody
+  watches. The preparation's reporter is `live`.
+- **The level.** The processor publishes the text with
+  `levelProvisional: true` and C1 as a stand-in (of 110 originals judged by
+  November 2026, 109 were C1). `book.level_provisional` carries it to
+  `BookDto` and `BookDetails` as `levelProvisional`, for clients to say "not
+  rated yet". A later publication with a judged level clears it. Text warnings
+  do not hold a live book.
+- **Not built yet.** Nothing makes a live book's levels afterwards: its
+  publication settles the wants like any other, and the factory cannot reserve
+  a work whose preparation is finished. The host would have to pull the
+  edition from this deployment (promotion keeps ids) before producing.
+
+Measured on the deployed host on 2026-11-27, from a queued file to readable
+text: 13.5 s for 742 blocks, 22 s for 2,126, 26 s for 3,004, 46 s for 6,547,
+53 s for 8,850 (processor `docs/CHANGELOG.md`).
+
 ## The factory
 
 Books are made on the owner's host, where the Codex and Claude plan accounts

@@ -53,6 +53,9 @@ public class Preparation {
     String sourceLanguage;
     UUID processorEditionId;
 
+    /** The slug of the edition the processor made; the book's address once it is on the shelf. */
+    String editionSlug;
+
     /** The processor's phase: downloading, ingesting, review, ready, published or failed. */
     String phase;
 
@@ -69,7 +72,10 @@ public class Preparation {
     @JoinColumn(name = "started_by_user_id")
     User startedBy;
 
-    /** Who reports progress: {@code processor}, polled from this deployment's processor, or {@code factory}, pushed. */
+    /**
+     * Who reports progress: {@code processor}, polled from this deployment's processor; {@code factory}, pushed; or
+     * {@code live}, a reader waiting, read from this deployment's processor whenever the reader asks.
+     */
     String reporter;
 
     @CreatedDate

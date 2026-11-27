@@ -24,4 +24,5 @@ public record BookDto(
         boolean hasTranslation,
         boolean hasParallelTranslation,
         boolean isTranslation,
-        CEFR adaptsTo) {}
+        CEFR adaptsTo,
+        boolean levelProvisional) {}

@@ -318,6 +318,45 @@ public class BookProcessorClient {
             String author,
             Language language,
             Integer publicationYear) {
+        return startSourceIngest(
+                externalId,
+                new SourceText(downloadUrl, sourceKind, sourcePageUrl),
+                title,
+                author,
+                language,
+                publicationYear,
+                false,
+                List.of());
+    }
+
+    /** One free text as the processor is told of it: the file, the library's kind in its spelling, the human page. */
+    public record SourceText(String downloadUrl, String sourceKind, String sourcePageUrl) {
+        Map<String, Object> body() {
+            Map<String, Object> body = new LinkedHashMap<>();
+            body.put("download_url", downloadUrl);
+            body.put("source_kind", sourceKind);
+            body.put("source_page_url", sourcePageUrl);
+            return body;
+        }
+    }
+
+    /**
+     * The same request with a reader waiting ({@code live}): the processor fetches and splits the text on its live
+     * queue, does not wait for a library that is down, and shelves the book as it arrives. {@code fallbacks} are
+     * other free texts of the same book, tried in order when {@code source} cannot be had.
+     */
+    public ProcessorIngestStatus startSourceIngest(
+            UUID externalId,
+            SourceText source,
+            String title,
+            String author,
+            Language language,
+            Integer publicationYear,
+            boolean live,
+            List<SourceText> fallbacks) {
+        String downloadUrl = source.downloadUrl();
+        String sourceKind = source.sourceKind();
+        String sourcePageUrl = source.sourcePageUrl();
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("external_id", externalId.toString());
         body.put("download_url", downloadUrl);
@@ -327,6 +366,12 @@ public class BookProcessorClient {
         body.put("author", author == null ? "" : author);
         body.put("language", processorCode(language));
         body.put("publication_year", publicationYear);
+        if (live) {
+            body.put("live", true);
+        }
+        if (!fallbacks.isEmpty()) {
+            body.put("fallbacks", fallbacks.stream().map(SourceText::body).toList());
+        }
         HttpHeaders headers = internalHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         JsonNode response;

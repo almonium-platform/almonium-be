@@ -80,6 +80,11 @@ app:
     editorial-url: ${ALMONIUM_BOOKS_EDITORIAL_URL:${ALMONIUM_BOOKS_PROCESSOR_URL}}
     # The month's ceiling on approved translation estimates; at the ceiling /ops stops approving and the queue keeps collecting.
     translation-budget-usd: ${ALMONIUM_BOOKS_TRANSLATION_BUDGET_USD:150}
+    # A book fetched while its reader waits (POST /books/live): how many a reader may start in a day, and how many
+    # may be arriving at once for everybody. Each takes a core of the one host for up to a minute.
+    live:
+      daily-limit: 5
+      max-at-once: 4
   # Pronunciation clips: files under local-dir by default, an S3-compatible bucket (Cloudflare R2) when deployed.
   audio:
     store: ${AUDIO_STORE:filesystem}

@@ -46,6 +46,7 @@ public class BookPublicationService {
         book.setPublicationYear(request.publicationYear());
         book.setCoverUrl(request.coverUrl());
         book.setCefrLevel(request.cefrLevel());
+        book.setLevelProvisional(Boolean.TRUE.equals(request.levelProvisional()));
         book.setAdaptsTo(request.adaptsTo());
         book.setOriginalLanguage(request.originalLanguage());
         book.setEditionType(request.editionType());

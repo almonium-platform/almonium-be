@@ -57,6 +57,49 @@ class BookPublicationServiceTest {
     BookPublicationService service;
 
     @Test
+    void aTextThatArrivedUnjudgedKeepsAProvisionalLevelUntilAJudgedOneIsPublished() {
+        Book shelved = new Book();
+        when(bookRepository.findAnyByEditionSlug("dracula-en-original")).thenReturn(Optional.of(shelved));
+        when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        service.publish(dracula(CEFR.C1, true));
+        assertThat(shelved.isLevelProvisional()).isTrue();
+        assertThat(shelved.getCefrLevel()).isEqualTo(CEFR.C1);
+
+        // a processor that says nothing publishes a judged level, as every one did before
+        service.publish(dracula(CEFR.B2, null));
+        assertThat(shelved.isLevelProvisional()).isFalse();
+        assertThat(shelved.getCefrLevel()).isEqualTo(CEFR.B2);
+    }
+
+    private static BookPublicationRequest dracula(CEFR level, Boolean provisional) {
+        return new BookPublicationRequest(
+                "dracula-en-original",
+                "b".repeat(64),
+                "dracula",
+                "Dracula",
+                "Bram Stoker",
+                null,
+                Language.EN,
+                Language.EN,
+                "original",
+                null,
+                null,
+                null,
+                1897,
+                null,
+                level,
+                160000,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                provisional);
+    }
+
+    @Test
     void storesTheProcessorProjectionWithoutInventedCatalogValues() {
         BookPublicationRequest request = new BookPublicationRequest(
                 "frankenstein-en",

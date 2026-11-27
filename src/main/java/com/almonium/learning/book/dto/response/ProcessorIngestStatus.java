@@ -10,6 +10,8 @@ import tools.jackson.databind.JsonNode;
 /**
  * The processor's own account of a library or source ingest, mirrored read-only. {@code completedStages} names the
  * pipeline stages that succeeded and {@code currentStage} the one running, when the processor reports them.
+ * {@code sourceKind} and {@code sourcePageUrl} name the text the edition was made from, which after a fallback is not
+ * the one first asked for; null when the processor does not say.
  */
 public record ProcessorIngestStatus(
         UUID editionId,
@@ -21,7 +23,9 @@ public record ProcessorIngestStatus(
         Instant publishedAt,
         UUID publishedBookId,
         List<String> completedStages,
-        String currentStage) {
+        String currentStage,
+        String sourceKind,
+        String sourcePageUrl) {
 
     /** The status as the processor writes it (snake_case), whether polled from it or pushed by the factory. */
     public static ProcessorIngestStatus from(JsonNode body) {
@@ -38,7 +42,13 @@ public record ProcessorIngestStatus(
                 instant(body.path("published_at")),
                 uuid(body.path("published_book_id")),
                 completed,
-                current.isBlank() ? null : current);
+                current.isBlank() ? null : current,
+                blankToNull(body.path("source").path("kind").asString("")),
+                blankToNull(body.path("source").path("page_url").asString("")));
+    }
+
+    private static String blankToNull(String text) {
+        return text.isBlank() ? null : text;
     }
 
     private static UUID uuid(JsonNode node) {
@@ -61,5 +71,31 @@ public record ProcessorIngestStatus(
             Instant publishedAt,
             UUID publishedBookId) {
         this(editionId, slug, status, phase, progress, error, publishedAt, publishedBookId, List.of(), null);
+    }
+
+    public ProcessorIngestStatus(
+            UUID editionId,
+            String slug,
+            String status,
+            String phase,
+            int progress,
+            String error,
+            Instant publishedAt,
+            UUID publishedBookId,
+            List<String> completedStages,
+            String currentStage) {
+        this(
+                editionId,
+                slug,
+                status,
+                phase,
+                progress,
+                error,
+                publishedAt,
+                publishedBookId,
+                completedStages,
+                currentStage,
+                null,
+                null);
     }
 }

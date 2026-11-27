@@ -3,9 +3,11 @@ package com.almonium.learning.wanted.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +22,7 @@ import com.almonium.learning.rights.model.RightsStatus;
 import com.almonium.learning.wanted.model.entity.Preparation;
 import com.almonium.learning.wanted.repository.PreparationRepository;
 import com.almonium.user.core.exception.ResourceConflictException;
+import com.almonium.user.core.model.entity.User;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -145,6 +148,97 @@ class PreparationServiceTest {
                 .isInstanceOf(jakarta.persistence.EntityNotFoundException.class);
     }
 
+    @Test
+    void aLiveStartTellsTheProcessorAReaderIsWaitingAndWhichTextsStandBy() {
+        TextSourceView standard = source(RightsStatus.FREE, "en");
+        TextSourceView gutenberg = source(RightsStatus.FREE, "en");
+        User reader = new User();
+        reader.setId(UUID.randomUUID());
+        when(processor.startSourceIngest(
+                        any(),
+                        any(BookProcessorClient.SourceText.class),
+                        any(),
+                        any(),
+                        any(),
+                        any(),
+                        anyBoolean(),
+                        any()))
+                .thenReturn(new ProcessorIngestStatus(
+                        edition, "pending-1", "queued", "downloading", 0, "", null, null, List.of(), null));
+
+        Preparation preparation = service.startLive(reader, work.getId(), standard, List.of(gutenberg));
+
+        assertThat(preparation.getReporter()).isEqualTo(PreparationService.REPORTER_LIVE);
+        assertThat(preparation.getStartedBy()).isSameAs(reader);
+        assertThat(preparation.getLanguage()).isEqualTo(Language.EN);
+        assertThat(preparation.getCreatedAt()).isEqualTo(Instant.parse("2026-10-08T00:00:00Z"));
+        assertThat(preparation.getEditionSlug()).isEqualTo("pending-1");
+        BookProcessorClient.SourceText text =
+                new BookProcessorClient.SourceText(standard.downloadUrl(), "gutenberg", standard.pageUrl());
+        verify(processor)
+                .startSourceIngest(
+                        any(),
+                        eq(text),
+                        eq("Dracula"),
+                        eq("Bram Stoker"),
+                        eq(Language.EN),
+                        eq(1897),
+                        eq(true),
+                        eq(List.of(text)));
+    }
+
+    @Test
+    void watchingAsksTheProcessorUnlessItWasAskedWithinTheSecondOrTheBookIsFinished() {
+        Instant now = Instant.parse("2026-10-08T00:00:00Z");
+        Preparation preparation = new Preparation();
+        preparation.setId(UUID.randomUUID());
+        preparation.setReporter(PreparationService.REPORTER_LIVE);
+        preparation.setProcessorEditionId(edition);
+        preparation.setPhase("ingesting");
+        preparation.setCheckedAt(now.minusSeconds(2));
+        preparation.setSourceKind("GUTENBERG");
+        when(preparations.findById(preparation.getId())).thenReturn(Optional.of(preparation));
+        when(processor.sourceIngestStatus(edition))
+                .thenReturn(new ProcessorIngestStatus(
+                        edition,
+                        "dracula-en-original",
+                        "published",
+                        "published",
+                        100,
+                        "",
+                        now,
+                        UUID.randomUUID(),
+                        List.of("ingest", "sentences", "publish"),
+                        null,
+                        "standard_ebooks",
+                        "https://standardebooks.org/ebooks/bram-stoker/dracula"));
+
+        Preparation watched = service.watch(preparation.getId()).orElseThrow();
+
+        assertThat(watched.getPhase()).isEqualTo("published");
+        assertThat(watched.getEditionSlug()).isEqualTo("dracula-en-original");
+        assertThat(watched.getProgress()).isEqualTo(4);
+        // the processor fell back on another library's text, and the preparation says so
+        assertThat(watched.getSourceKind()).isEqualTo("STANDARD_EBOOKS");
+        assertThat(watched.getSourceReference()).isEqualTo("https://standardebooks.org/ebooks/bram-stoker/dracula");
+
+        service.watch(preparation.getId());
+        verify(processor, times(1)).sourceIngestStatus(edition);
+    }
+
+    @Test
+    void aProcessorThatDoesNotAnswerLeavesTheLastWordStanding() {
+        Preparation preparation = new Preparation();
+        preparation.setId(UUID.randomUUID());
+        preparation.setReporter(PreparationService.REPORTER_LIVE);
+        preparation.setProcessorEditionId(edition);
+        preparation.setPhase("ingesting");
+        when(preparations.findById(preparation.getId())).thenReturn(Optional.of(preparation));
+        when(processor.sourceIngestStatus(edition)).thenThrow(new IllegalStateException("down"));
+
+        assertThat(service.watch(preparation.getId()).orElseThrow().getPhase()).isEqualTo("ingesting");
+    }
+
     private static ProcessorIngestStatus reported(UUID edition) {
         return new ProcessorIngestStatus(edition, "dracula-en", "ready", "ready", 100, "", null, null);
     }
@@ -155,8 +249,9 @@ class PreparationServiceTest {
         preparation.setId(UUID.randomUUID());
         preparation.setProcessorEditionId(edition);
         preparation.setPhase("ingesting");
-        when(preparations.findByReporterAndProcessorEditionIdNotNullAndPhaseNotIn(
-                        PreparationService.REPORTER_PROCESSOR, PreparationService.FINISHED))
+        when(preparations.findByReporterInAndProcessorEditionIdNotNullAndPhaseNotIn(
+                        List.of(PreparationService.REPORTER_PROCESSOR, PreparationService.REPORTER_LIVE),
+                        PreparationService.FINISHED))
                 .thenReturn(List.of(preparation));
         when(processor.sourceIngestStatus(edition))
                 .thenReturn(new ProcessorIngestStatus(

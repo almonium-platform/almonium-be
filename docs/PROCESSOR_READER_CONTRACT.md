@@ -113,6 +113,20 @@ wanted works nobody is preparing, reserves one with
 `POST /internal/books/factory/preparations/{id}/status`, all signed like
 publications. See `COPYRIGHT_AND_CATALOGUE.md`, "The factory".
 
+## Live source ingests (2026-11-27)
+
+`POST /internal/source-ingests/` takes two more optional fields from this
+backend. `live: true` says a reader is waiting: the processor fetches and
+splits the text on its live queue, does not wait for a library that is down,
+and publishes the edition as soon as its sentences are split, with
+`levelProvisional: true` and a stand-in `cefrLevel` in the publication.
+`fallbacks` is a list of `{download_url, source_kind, source_page_url}`, other
+free texts of the same book tried in order. The ingest status carries
+`source: {kind, page_url, download_url}`, the text the edition was made from,
+and reports `failed` with the publication's reason when the shelf refused a
+live text. A publication without `levelProvisional` is a judged level. See
+`COPYRIGHT_AND_CATALOGUE.md`, "Reading a book now (live)".
+
 ## The lexicon (2026-10-18)
 
 The backend owns the dictionary, in the `lexicon` schema. Entries are

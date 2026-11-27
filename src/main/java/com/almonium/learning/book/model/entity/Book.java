@@ -70,6 +70,12 @@ public class Book {
     CEFR cefrLevel;
 
     /**
+     * Nobody has judged the level yet: a reader asked for the text and it went to the shelf as it arrived, filed
+     * under the level an unadapted original usually has. Cleared when the processor publishes a judged level.
+     */
+    boolean levelProvisional;
+
+    /**
      * The lowest level a faithful adaptation of this work has reached both of its gates at, found per book by the
      * processor and never promised in advance; null until a level is reached. The same for every edition of a work.
      */

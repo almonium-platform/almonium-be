@@ -89,7 +89,8 @@ public class BookService {
                 hasVariant,
                 hasVariant,
                 isTranslation(book),
-                book.getAdaptsTo());
+                book.getAdaptsTo(),
+                book.isLevelProvisional());
     }
 
     public BookDetails getPublicBook(String editionSlug) {
@@ -108,6 +109,7 @@ public class BookService {
         details.setWordCount(book.getWordCount());
         details.setLanguage(book.getLanguage());
         details.setCefrLevel(book.getCefrLevel());
+        details.setLevelProvisional(book.isLevelProvisional());
         details.setAdaptsTo(book.getAdaptsTo());
         details.setEditionType(book.getEditionType());
         details.setIsTranslation(isTranslation(book));
