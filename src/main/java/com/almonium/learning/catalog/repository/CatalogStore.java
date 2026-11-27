@@ -278,9 +278,11 @@ public class CatalogStore {
     }
 
     /**
-     * Works whose titles or authors contain the folded query as whole words or close to it. An exact title comes
-     * first; then matches in quarter-point bands of similarity, the better-known work first within a band, so a famous
-     * work is not buried under an obscure one that happens to match a letter better.
+     * Works whose titles or authors contain the folded query as whole words or close to it. An exact match on a work's
+     * own title or original title, or on an alias, comes first; then matches in quarter-point bands of similarity, the
+     * better-known work first within a band, so a famous work is not buried under an obscure one that happens to match
+     * a letter better. An exact match on any other label ranks like a title that contains the query: Wikidata labels
+     * the Harry Potter prequel "Harry Potter" in some language, and it must not stand above the seven novels.
      */
     public List<Hit> search(String folded, int limit) {
         String sql = """
@@ -288,9 +290,13 @@ public class CatalogStore {
                        w.popularity, w.work_slug, w.production_status, w.production_free_from, s.score
                 from (select id, max(score) as score
                       from (select t.catalog_work_id as id,
-                                   case when t.normalized = :q then 2.0 else word_similarity(:q, t.normalized) end
-                                       as score
+                                   case
+                                       when t.normalized = :q and t.kind = 'TITLE'
+                                               and t.text in (o.title, o.original_title) then 2.0
+                                       else word_similarity(:q, t.normalized)
+                                   end as score
                             from catalog_title t
+                            join catalog_work o on o.id = t.catalog_work_id
                             where :q <% t.normalized
                             union all
                             select a.catalog_work_id, 2.0 from catalog_alias a where a.normalized = :q) m

@@ -88,6 +88,31 @@ class CatalogStoreTest {
     }
 
     @Test
+    void anExactMatchOnAnotherLabelDoesNotLiftAnObscureWorkAboveFamousOnes() {
+        work(
+                "Harry Potter and the Philosopher's Stone",
+                "J. K. Rowling",
+                1997,
+                104,
+                RightsStatus.PROTECTED,
+                "Harry Potter and the Philosopher's Stone");
+        work(
+                "Harry Potter prequel",
+                "J. K. Rowling",
+                2008,
+                21,
+                RightsStatus.PROTECTED,
+                "Harry Potter prequel",
+                "Harry Potter");
+        store.upsertWorks(works, Instant.now());
+        store.replaceTitles(titles);
+
+        assertThat(search("harry potter"))
+                .startsWith("Harry Potter and the Philosopher's Stone", "Harry Potter prequel");
+        assertThat(search("harry potter prequel").getFirst()).isEqualTo("Harry Potter prequel");
+    }
+
+    @Test
     void findsWorksByAuthorByAnotherLanguagesTitleAndWithoutAccents() {
         assertThat(search("conan doyle")).containsExactly("The Hound of the Baskervilles", "A Study in Scarlet");
         assertThat(search("hund von baskerville")).containsExactly("The Hound of the Baskervilles");
