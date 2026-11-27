@@ -1,6 +1,7 @@
 package com.almonium.learning.catalog.service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -449,7 +451,12 @@ public class WikidataCatalogSource {
                     }
                     try (BufferedReader reader =
                             new BufferedReader(new InputStreamReader(response.getBody(), StandardCharsets.UTF_8))) {
-                        reader.readLine();
+                        // QLever can answer a timed-out query with a JSON error and a success status; a body
+                        // that does not open with the variables' header is a refusal, not rows.
+                        String header = reader.readLine();
+                        if (header == null || !header.startsWith("?")) {
+                            throw new RefusedException("with no result table: " + errorOf(header, reader));
+                        }
                         String line;
                         while ((line = reader.readLine()) != null) {
                             if (!line.isEmpty()) {
@@ -461,6 +468,18 @@ public class WikidataCatalogSource {
                     return null;
                 });
         log.info("SPARQL query returned {} rows in {} ms", count[0], (System.nanoTime() - started) / 1_000_000);
+    }
+
+    /** QLever's own reason ("exception": "Operation timed out…") from an error body, else its first line. */
+    private static String errorOf(String firstLine, BufferedReader reader) throws IOException {
+        StringBuilder body = new StringBuilder(firstLine == null ? "" : firstLine);
+        String line;
+        while (body.length() < 4000 && (line = reader.readLine()) != null) {
+            body.append('\n').append(line);
+        }
+        Matcher reason = java.util.regex.Pattern.compile("\"exception\"\\s*:\\s*\"([^\"]*)\"")
+                .matcher(body);
+        return reason.find() ? reason.group(1) : (firstLine == null ? "an empty body" : firstLine);
     }
 
     /** The endpoint refused the query before sending any row. */

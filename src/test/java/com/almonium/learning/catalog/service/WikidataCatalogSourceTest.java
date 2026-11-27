@@ -21,6 +21,15 @@ import org.junit.jupiter.api.Test;
 class WikidataCatalogSourceTest {
     HttpServer server;
     final Deque<Integer> refusals = new ArrayDeque<>();
+    /** Answers to give as QLever gives a timed-out query: status 200 and a JSON error. */
+    final AtomicInteger timeouts = new AtomicInteger();
+
+    static final String TIMEOUT_BODY = """
+            {
+                "exception": "Operation timed out. Last operation: Sort (internal order) on ?w ?label",
+                "resultsize": 0
+            }
+            """;
     final AtomicInteger requests = new AtomicInteger();
 
     static final String E = "<http://www.wikidata.org/entity/";
@@ -32,8 +41,12 @@ class WikidataCatalogSourceTest {
             requests.incrementAndGet();
             String query = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
             Integer refusal = refusals.poll();
-            byte[] body =
-                    refusal != null ? new byte[0] : answer(java.net.URLDecoder.decode(query, StandardCharsets.UTF_8));
+            boolean timedOut = refusal == null && timeouts.getAndUpdate(left -> Math.max(0, left - 1)) > 0;
+            byte[] body = refusal != null
+                    ? new byte[0]
+                    : timedOut
+                            ? TIMEOUT_BODY.getBytes(StandardCharsets.UTF_8)
+                            : answer(java.net.URLDecoder.decode(query, StandardCharsets.UTF_8));
             exchange.sendResponseHeaders(refusal != null ? refusal : 200, body.length == 0 ? -1 : body.length);
             try (OutputStream out = exchange.getResponseBody()) {
                 out.write(body);
@@ -120,6 +133,23 @@ class WikidataCatalogSourceTest {
         assertThat(snapshot.labelsByWork().get("Q25338"))
                 .extracting(WikidataCatalogSource.Label::text)
                 .containsExactlyInAnyOrder("The Little Prince", "Le Petit Prince");
+    }
+
+    @Test
+    void aTimeoutAnsweredAsJsonIsAskedAgainNotReadAsRows() {
+        timeouts.set(1);
+
+        var snapshot = source().fetch();
+
+        assertThat(snapshot.works()).containsKey("Q25338");
+        assertThat(requests.get()).isEqualTo(16 + 1);
+    }
+
+    @Test
+    void aTimeoutThatKeepsComingFailsTheImportWithQLeversReason() {
+        timeouts.set(100);
+
+        assertThatThrownBy(() -> source().fetch()).hasMessageContaining("Operation timed out");
     }
 
     @Test
