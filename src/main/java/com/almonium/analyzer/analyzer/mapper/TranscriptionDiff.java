@@ -21,7 +21,8 @@ import java.util.regex.Pattern;
  *
  * <p>Before comparing, spellings of one sound are made one (ɹ and r, ɝ and ɜːr, t͡ʃ and tʃ) and syllable dots are
  * ignored. Every pair of transcriptions is aligned by edit distance, sounds only; a phoneme substituted is flagged in
- * both, one inserted in the one that has it. Stress is then compared by the sound each mark stands before, and left
+ * both, one inserted in the one that has it, and a symbol read as two sounds that matched by only one (ɚ against ə)
+ * in both. Stress is then compared by the sound each mark stands before, and left
  * out between two transcriptions when one of them marks none: a source that omits stress has not said it differs.
  */
 public final class TranscriptionDiff {
@@ -180,11 +181,43 @@ public final class TranscriptionDiff {
                 secondDiffers[b.get(--j).phoneme()] = true;
             }
         }
+        flagPartiallyMatched(a, b, aToB, secondDiffers);
+        flagPartiallyMatched(b, a, bToA, firstDiffers);
         List<Mark> firstMarks = marks(first, a);
         List<Mark> secondMarks = marks(second, b);
         if (firstMarks.isEmpty() || secondMarks.isEmpty()) return;
         flagUnmatched(firstMarks, secondMarks, aToB, firstDiffers);
         flagUnmatched(secondMarks, firstMarks, bToA, secondDiffers);
+    }
+
+    /**
+     * A phoneme read as two sounds (ɚ as ə and r) that matched by one and not the other differs as a whole symbol, so
+     * the symbol its matched sound aligned with is flagged too: British ə against American ɚ tints both, where a sound
+     * that is a symbol of its own (ɹ) stays tinted only in the line that has it.
+     */
+    private static void flagPartiallyMatched(List<Key> own, List<Key> other, int[] ownToOther, boolean[] otherDiffers) {
+        for (int start = 0; start < own.size(); ) {
+            int end = start;
+            while (end < own.size() && own.get(end).phoneme() == own.get(start).phoneme()) end++;
+            boolean anyMatched = false;
+            boolean anyApart = false;
+            for (int key = start; key < end; key++) {
+                if (matched(own, other, ownToOther, key)) anyMatched = true;
+                else anyApart = true;
+            }
+            if (anyMatched && anyApart) {
+                for (int key = start; key < end; key++) {
+                    if (matched(own, other, ownToOther, key)) {
+                        otherDiffers[other.get(ownToOther[key]).phoneme()] = true;
+                    }
+                }
+            }
+            start = end;
+        }
+    }
+
+    private static boolean matched(List<Key> own, List<Key> other, int[] ownToOther, int key) {
+        return ownToOther[key] >= 0 && step(own.get(key), other.get(ownToOther[key])) == 0;
     }
 
     private static void flagUnmatched(List<Mark> marks, List<Mark> others, int[] aligned, boolean[] differs) {

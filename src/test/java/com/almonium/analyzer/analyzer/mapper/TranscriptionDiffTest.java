@@ -158,7 +158,7 @@ class TranscriptionDiffTest {
 
         @Test
         void tintsSeveralSeparateDifferences() {
-            assertThat(tinted("en", "/ˈwɔːtə/", "/ˈwɑːɾɚ/")).containsExactly(List.of("ɔːt"), List.of("ɑːɾɚ"));
+            assertThat(tinted("en", "/ˈwɔːtə/", "/ˈwɑːɾɚ/")).containsExactly(List.of("ɔːtə"), List.of("ɑːɾɚ"));
         }
 
         @Test
@@ -192,8 +192,14 @@ class TranscriptionDiffTest {
         }
 
         @Test
-        void tintsOnlyTheRhoticVowelAgainstANonRhoticOne() {
-            assertThat(tinted("en", "/bɜːd/", "/bɝd/")).containsExactly(List.of(), List.of("ɝ"));
+        void tintsTheRhoticVowelAndTheNonRhoticOneItStandsAgainst() {
+            assertThat(tinted("en", "/bɜːd/", "/bɝd/")).containsExactly(List.of("ɜː"), List.of("ɝ"));
+            assertThat(tinted("en", "/ˈfaɪə.saɪd/", "/ˈfaɪɚ.saɪd/")).containsExactly(List.of("ə"), List.of("ɚ"));
+        }
+
+        @Test
+        void tintsAnRThatIsASymbolOfItsOwnOnlyInTheLineThatHasIt() {
+            assertThat(tinted("en", "/ˈfaɪə.saɪd/", "/ˈfaɪəɹ.saɪd/")).containsExactly(List.of(), List.of("ɹ"));
         }
 
         @Test
