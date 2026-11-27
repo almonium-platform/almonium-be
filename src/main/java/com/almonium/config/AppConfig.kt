@@ -3,6 +3,7 @@ package com.almonium.config
 import com.almonium.config.properties.AlmoProperties
 import com.almonium.config.properties.AppProperties
 import com.almonium.config.properties.AudioProperties
+import com.almonium.config.properties.CoverProperties
 import com.almonium.config.properties.ExternalApiProperties
 import com.almonium.config.properties.GoogleProperties
 import com.almonium.config.properties.OpenAiProperties
@@ -24,6 +25,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
     AlmoProperties::class,
     AppProperties::class,
     AudioProperties::class,
+    CoverProperties::class,
     ExternalApiProperties::class,
     GoogleProperties::class,
     OpenAiProperties::class,

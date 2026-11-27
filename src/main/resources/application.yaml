@@ -205,3 +205,9 @@ external.api:
     words: ${RAPID_API_KEY}
     wordnik: ${WORDNIK_KEY}
     yandex: ${YANDEX_KEY}
+
+# Cover art: period illustrations from Wikimedia Commons, filtered by a licence rule and picked by a vision model
+# through OpenRouter. Without a key nothing is fetched and every book keeps its typographic cover.
+covers:
+  api-key: ${OPENROUTER_API_KEY:}
+  model: ${COVER_MODEL:anthropic/claude-sonnet-5.5}

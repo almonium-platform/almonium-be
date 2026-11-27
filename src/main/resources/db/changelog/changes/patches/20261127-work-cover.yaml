@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261127-work-cover
+      author: claude
+      comment: >-
+        work_cover is the cover art of one work, shared by its editions: our copy of a public-domain illustration
+        from Wikimedia Commons, where its subject sits for the crop, and the record of its source, artist and the
+        licence category it was accepted on. A work that was looked at and got nothing has a row too.
+      changes:
+        - createTable:
+            tableName: work_cover
+            columns:
+              - column:
+                  name: work_slug
+                  type: varchar(180)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image
+                  type: bytea
+              - column:
+                  name: content_type
+                  type: varchar(40)
+              - column:
+                  name: focus_x
+                  type: int
+                  defaultValueNumeric: 50
+                  constraints:
+                    nullable: false
+              - column:
+                  name: focus_y
+                  type: int
+                  defaultValueNumeric: 50
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_page_url
+                  type: text
+              - column:
+                  name: artist
+                  type: text
+              - column:
+                  name: licence
+                  type: text
+              - column:
+                  name: licence_basis
+                  type: text
+              - column:
+                  name: reason
+                  type: text
+              - column:
+                  name: model
+                  type: varchar(120)
+              - column:
+                  name: checked_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false

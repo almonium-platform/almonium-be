@@ -24,6 +24,10 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     /** Every edition of a work, whatever its language; the caller matches the author. */
     List<Book> findByWorkSlug(String workSlug);
 
+    /** Every work on the shelf, once. */
+    @Query("select distinct b.workSlug from Book b where b.workSlug is not null")
+    List<String> findWorkSlugs();
+
     // Withdrawn translations are already invisible here, so this counts only the
     // ones that would be left pointing at a book nobody can read.
     @Query("select count(t) from Book t where t.originalBook.id = :bookId")
