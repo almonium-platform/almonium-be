@@ -107,6 +107,36 @@ public class CatalogSearchService {
         return decorate(matched, language, currentMember.id(), factsById);
     }
 
+    /**
+     * One work as its own page shows it (W15): the answer a search would give for it. A visit counts as demand (W5),
+     * so it is logged the way a search that found the work is.
+     */
+    public CatalogHit work(UUID catalogWorkId, Language language) {
+        CatalogWork work = catalogWorkRepository
+                .findById(catalogWorkId)
+                .orElseThrow(() -> new EntityNotFoundException("Work not found"));
+        Hit hit = new Hit(
+                work.getId(),
+                work.getTitle(),
+                work.getOriginalTitle(),
+                work.getOriginalLanguage(),
+                work.getPublicationYear(),
+                work.getAuthorDisplay(),
+                work.getPopularity(),
+                work.getWorkSlug(),
+                work.getProductionStatus(),
+                work.getProductionFreeFrom(),
+                1);
+        Optional<UUID> member = currentMember.id();
+        store.logSearch(
+                TitleFolding.fold(work.getTitle()),
+                hit,
+                member.orElse(null),
+                searchRequester.of(member.orElse(null)),
+                Instant.now(clock));
+        return decorate(List.of(hit), language, member).getFirst();
+    }
+
     /** Where and when one work is free to read, country by country (W7). */
     @Transactional(readOnly = true)
     public WorkUnlocksView unlocks(UUID catalogWorkId) {

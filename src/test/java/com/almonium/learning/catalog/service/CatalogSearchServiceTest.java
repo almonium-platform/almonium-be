@@ -112,6 +112,28 @@ class CatalogSearchServiceTest {
         });
     }
 
+    @Test
+    void aWorkOpenedByIdAnswersLikeASearchHitAndCountsAsDemand() {
+        UUID id = UUID.randomUUID();
+        CatalogWork work = mock(CatalogWork.class);
+        when(work.getId()).thenReturn(id);
+        when(work.getTitle()).thenReturn("Twilight");
+        when(work.getAuthorDisplay()).thenReturn("Stephenie Meyer");
+        when(work.getPublicationYear()).thenReturn(2005);
+        when(work.getProductionStatus()).thenReturn(RightsStatus.PROTECTED);
+        when(work.rightsFacts())
+                .thenReturn(new RightsFacts(2005, List.of(AuthorFacts.of("Stephenie Meyer", 1973, null))));
+        when(works.findById(id)).thenReturn(Optional.of(work));
+        when(works.findAllById(List.of(id))).thenReturn(List.of(work));
+
+        CatalogHit hit = service.work(id, null);
+
+        assertThat(hit.title()).isEqualTo("Twilight");
+        assertThat(hit.state()).isEqualTo(CatalogState.UNDER_COPYRIGHT);
+        assertThat(hit.readerFreeFrom()).isNull();
+        verify(store).logSearch(eq("twilight"), any(Hit.class), isNull(), startsWith("g:"), any(Instant.class));
+    }
+
     static Hit hit(String title, String workSlug, RightsStatus status) {
         return new Hit(UUID.randomUUID(), title, null, null, 1900, "Someone", 10, workSlug, status, null, 1.0);
     }

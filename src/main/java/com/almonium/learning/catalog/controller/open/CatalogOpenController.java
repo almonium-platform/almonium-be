@@ -53,6 +53,12 @@ public class CatalogOpenController {
         return ResponseEntity.ok(catalogSearchService.freeFrom(target, limit, language));
     }
 
+    /** One work by id, for the page a catalogue work opens (W15); the visit is counted as demand. */
+    @GetMapping("/works/{id}")
+    public ResponseEntity<CatalogHit> work(@PathVariable UUID id, @RequestParam(required = false) Language language) {
+        return ResponseEntity.ok(catalogSearchService.work(id, language));
+    }
+
     /** The libraries a work's text can come from, best first, with the default a want is made from marked. */
     @GetMapping("/works/{id}/sources")
     public ResponseEntity<List<SourceOption>> sources(@PathVariable UUID id) {
