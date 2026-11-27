@@ -113,6 +113,25 @@ class CatalogStoreTest {
     }
 
     @Test
+    void anObscureExactTitleYieldsToAFarBetterKnownWorkThatContainsTheQuery() {
+        work(
+                "Frankenstein; or, The Modern Prometheus",
+                "Mary Shelley",
+                1818,
+                88,
+                RightsStatus.FREE,
+                "Frankenstein; or, The Modern Prometheus");
+        work("Frankenstein", "Unknown", 1990, 5, RightsStatus.PROTECTED, "Frankenstein");
+        work("Dracula", "Someone Else", 1990, 13, RightsStatus.PROTECTED, "Dracula");
+        store.upsertWorks(works, Instant.now());
+        store.replaceTitles(titles);
+
+        assertThat(search("frankenstein")).containsExactly("Frankenstein; or, The Modern Prometheus", "Frankenstein");
+        // 13 is more than a tenth of Stoker's 120: both exact titles stay above the containing ones.
+        assertThat(search("dracula")).startsWith("Dracula", "Dracula", "Bram Stoker's Dracula");
+    }
+
+    @Test
     void findsWorksByAuthorByAnotherLanguagesTitleAndWithoutAccents() {
         assertThat(search("conan doyle")).containsExactly("The Hound of the Baskervilles", "A Study in Scarlet");
         assertThat(search("hund von baskerville")).containsExactly("The Hound of the Baskervilles");

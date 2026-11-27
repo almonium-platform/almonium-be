@@ -277,36 +277,62 @@ public class CatalogStore {
         }
     }
 
+    /** How many times better known a work containing the whole query must be to outrank an exact title. */
+    static final int EXACT_TITLE_POPULARITY_FACTOR = 10;
+
     /**
-     * Works whose titles or authors contain the folded query as whole words or close to it. An exact match on a work's
-     * own title or original title, or on an alias, comes first; then matches in quarter-point bands of similarity, the
+     * Works whose titles or authors contain the folded query as whole words or close to it. An alias comes first; then
+     * an exact match on a work's own title or original title; then matches in quarter-point bands of similarity, the
      * better-known work first within a band, so a famous work is not buried under an obscure one that happens to match
-     * a letter better. An exact match on any other label ranks like a title that contains the query: Wikidata labels
-     * the Harry Potter prequel "Harry Potter" in some language, and it must not stand above the seven novels.
+     * a letter better.
+     *
+     * <p>An exact title wins only while no work containing the whole query is {@link #EXACT_TITLE_POPULARITY_FACTOR}
+     * times better known: an undated "Frankenstein" must not stand above Shelley's novel, nor a 2013 "Alice" above
+     * Wonderland. Demoted, it ranks like a title that contains the query, as does an exact match on any other label
+     * (Wikidata labels the Harry Potter prequel "Harry Potter" in some language).
      */
     public List<Hit> search(String folded, int limit) {
         String sql = """
-                select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display,
-                       w.popularity, w.work_slug, w.production_status, w.production_free_from, s.score
-                from (select id, max(score) as score
-                      from (select t.catalog_work_id as id,
-                                   case
-                                       when t.normalized = :q and t.kind = 'TITLE'
-                                               and t.text in (o.title, o.original_title) then 2.0
-                                       else word_similarity(:q, t.normalized)
-                                   end as score
-                            from catalog_title t
-                            join catalog_work o on o.id = t.catalog_work_id
-                            where :q <% t.normalized
-                            union all
-                            select a.catalog_work_id, 2.0 from catalog_alias a where a.normalized = :q) m
-                      group by id) s
-                join catalog_work w on w.id = s.id
-                order by s.score >= 2 desc, floor(s.score * 4) desc, w.popularity desc, w.title
+                with matched as (
+                    select id, max(score) as score
+                    from (select t.catalog_work_id as id,
+                                 case
+                                     when t.normalized = :q and t.kind = 'TITLE'
+                                             and t.text in (o.title, o.original_title) then 2.0
+                                     else word_similarity(:q, t.normalized)
+                                 end as score
+                          from catalog_title t
+                          join catalog_work o on o.id = t.catalog_work_id
+                          where :q <% t.normalized
+                          union all
+                          select a.catalog_work_id, 3.0 from catalog_alias a where a.normalized = :q) m
+                    group by id),
+                ranked as (
+                    select w.*, s.score,
+                           max(case when s.score >= 1 then w.popularity end) over () as best_known
+                    from matched s
+                    join catalog_work w on w.id = s.id)
+                select id, title, original_title, original_language, publication_year, author_display,
+                       popularity, work_slug, production_status, production_free_from,
+                       case
+                           when score = 2 and popularity * :factor < best_known then 1.0
+                           else score
+                       end as score
+                from ranked
+                order by score >= 3 desc,
+                         score = 2 and popularity * :factor >= best_known desc,
+                         floor(least(score, 1.0) * 4) desc,
+                         popularity desc,
+                         title
                 limit :limit
                 """;
         return named.query(
-                sql, new MapSqlParameterSource().addValue("q", folded).addValue("limit", limit), CatalogStore::hit);
+                sql,
+                new MapSqlParameterSource()
+                        .addValue("q", folded)
+                        .addValue("limit", limit)
+                        .addValue("factor", EXACT_TITLE_POPULARITY_FACTOR),
+                CatalogStore::hit);
     }
 
     /** The facts of every work, for recomputing production status as the years turn. */

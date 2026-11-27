@@ -44,9 +44,14 @@ produces are deleted unless linked.
 `catalog_title` holds every title, every author name, and one "title + author"
 row per work, folded (`TitleFolding`: lower case, no accents or apostrophes,
 punctuation as spaces) and indexed with `pg_trgm`. Search (`GET
-/public/catalog/search?q=`) ranks exact titles first, then quarter-point bands
-of word similarity, the better-known work first within a band. Queries take
-5–20 ms on the full catalogue.
+/public/catalog/search?q=`) ranks an ops alias first, then an exact match on a
+work's own title or original title, then quarter-point bands of word
+similarity, the better-known work first within a band. An exact title wins only
+while no work containing the whole query is ten times better known
+(`CatalogStore.EXACT_TITLE_POPULARITY_FACTOR`), so an undated "Frankenstein"
+yields to Shelley's novel; demoted, it ranks with the titles that contain the
+query, as does an exact match on any other label. Queries take 10–60 ms on the
+full catalogue, a one-word query like "it" about 180 ms.
 
 The import runs on the first start against an empty catalogue, on the 2nd of
 every month at 04:30 UTC, and on demand from `POST /ops/catalog/import`. The
