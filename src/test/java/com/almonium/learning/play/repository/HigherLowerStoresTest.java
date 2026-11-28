@@ -39,36 +39,38 @@ class HigherLowerStoresTest {
     }
 
     @Test
-    void handsOutGlossedContentWordsInTheRankBandWithTheirFigureAndRank() {
-        // Ranks 1 to 49 are filler words that only push the playable ones past the first rank.
+    void handsOutContentWordsInTheRankBandWithTheirFigureRankAndMeaningWhenTheyHaveOne() {
+        // Ranks 2 to 50 are filler words that only push the playable ones past the first rank.
         for (int i = 0; i < 49; i++) {
             lexeme("de", "wort" + i, "DET", "6." + String.format("%02d", 99 - i));
         }
         UUID heimat = lexeme("de", "Heimat", "NOUN", "4.60");
         gloss(sense(heimat, 1), "uk", 1, "батьківщина");
         gloss(sense(heimat, 1), "uk", 2, "дім");
-        UUID noMeaning = lexeme("de", "Brücke", "NOUN", "4.65");
-        sense(noMeaning, 1);
-        UUID name = lexeme("de", "Berlin", "PROPN", "4.70");
-        gloss(sense(name, 1), "uk", 1, "Берлін");
-        UUID tooCommon = lexeme("de", "Zeit", "NOUN", "7.00");
-        gloss(sense(tooCommon, 1), "uk", 1, "час");
-        UUID englishOnly = lexeme("de", "Angst", "NOUN", "4.50");
-        gloss(sense(englishOnly, 1), "en", 1, "fear");
+        sense(lexeme("de", "Brücke", "NOUN", "4.65"), 1);
+        gloss(sense(lexeme("de", "Berlin", "PROPN", "4.70"), 1), "uk", 1, "Берлін");
+        gloss(sense(lexeme("de", "Zeit", "NOUN", "7.00"), 1), "uk", 1, "час");
+        gloss(sense(lexeme("de", "Angst", "NOUN", "4.50"), 1), "en", 1, "fear");
 
         List<HigherLowerWord> batch = words.sample("de", "uk", 10);
 
-        assertThat(batch).singleElement().satisfies(word -> {
-            assertThat(word.headword()).isEqualTo("Heimat");
-            assertThat(word.gloss()).isEqualTo("батьківщина, дім");
-            assertThat(word.perMillion()).isCloseTo(39.81, within(0.01));
-            // Zeit, the 49 fillers, Berlin and Brücke are all more common.
-            assertThat(word.rank()).isEqualTo(53);
-        });
+        assertThat(batch).extracting(HigherLowerWord::headword).containsExactlyInAnyOrder("Heimat", "Brücke", "Angst");
+        HigherLowerWord placed = batch.stream()
+                .filter(word -> word.headword().equals("Heimat"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(placed.gloss()).isEqualTo("батьківщина, дім");
+        assertThat(placed.perMillion()).isCloseTo(39.81, within(0.01));
+        // Zeit, the 49 fillers, Berlin and Brücke are all more common.
+        assertThat(placed.rank()).isEqualTo(53);
+        assertThat(batch)
+                .filteredOn(word -> !word.headword().equals("Heimat"))
+                .extracting(HigherLowerWord::gloss)
+                .containsOnlyNulls();
     }
 
     @Test
-    void takesTheMeaningOfTheFirstSenseThatHasOneAndTheLexemeWithMostSenses() {
+    void letsTheLexemeWithAMeaningSpeakForItsLemmaThenTheOneWithMostSenses() {
         for (int i = 0; i < 49; i++) {
             lexeme("de", "wort" + i, "DET", "6.50");
         }
@@ -76,12 +78,33 @@ class HigherLowerStoresTest {
         sense(verb, 1);
         gloss(sense(verb, 2), "uk", 1, "могти");
         sense(verb, 3);
-        UUID noun = lexeme("de", "können", "NOUN", "4.00");
-        gloss(sense(noun, 1), "uk", 1, "уміння");
+        gloss(sense(lexeme("de", "können", "NOUN", "4.00"), 1), "uk", 1, "уміння");
+        UUID bare = lexeme("de", "Lauf", "NOUN", "3.90");
+        sense(bare, 1);
+        sense(bare, 2);
+        gloss(sense(lexeme("de", "Lauf", "VERB", "3.90"), 1), "uk", 1, "біг");
 
         assertThat(words.sample("de", "uk", 10))
-                .singleElement()
-                .satisfies(word -> assertThat(word.gloss()).isEqualTo("могти"));
+                .extracting(HigherLowerWord::headword, HigherLowerWord::gloss)
+                .containsExactlyInAnyOrder(
+                        org.assertj.core.groups.Tuple.tuple("können", "могти"),
+                        org.assertj.core.groups.Tuple.tuple("Lauf", "біг"));
+    }
+
+    @Test
+    void takesAtMostSoManyWordsFromEachQuarterZipfBand() {
+        for (int i = 0; i < 49; i++) {
+            lexeme("en", "filler" + i, "DET", "7.00");
+        }
+        for (int i = 0; i < 6; i++) {
+            lexeme("en", "rare" + i, "NOUN", "3.1" + i);
+        }
+        lexeme("en", "common", "NOUN", "5.10");
+
+        List<HigherLowerWord> batch = words.sample("en", "uk", 2);
+
+        assertThat(batch).extracting(HigherLowerWord::headword).contains("common");
+        assertThat(batch).filteredOn(word -> word.headword().startsWith("rare")).hasSize(2);
     }
 
     @Test

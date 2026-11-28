@@ -10,9 +10,10 @@ import org.springframework.stereotype.Repository;
 /**
  * Words for Higher or Lower, read from the lexicon. A lemma's rank counts every word of the language with a known
  * frequency, function words and names included, so it reads as "the 2,300th most common word"; the words handed out
- * are only nouns, verbs, adjectives and adverbs between {@link #FIRST_RANK} and {@link #LAST_RANK} that carry a
- * meaning in the reader's language. Of a lemma written as several lexemes, the one with the most senses speaks for it.
- * Languages are lower-case, as the lexicon spells them.
+ * are only nouns, verbs, adjectives and adverbs between {@link #FIRST_RANK} and {@link #LAST_RANK}. A word carries its
+ * meaning in the reader's language when its entry has one, and plays without one when it does not yet. Of a lemma
+ * written as several lexemes, one with a meaning speaks for it, then the one with the most senses. Languages are
+ * lower-case, as the lexicon spells them.
  */
 @Repository
 @RequiredArgsConstructor
@@ -22,8 +23,12 @@ public class HigherLowerWordStore {
 
     private final NamedParameterJdbcTemplate jdbc;
 
-    /** A random sample of at most {@code limit} playable words. */
-    public List<HigherLowerWord> sample(String language, String fluent, int limit) {
+    /**
+     * A random sample of playable words, at most {@code perBand} from each quarter-Zipf band, so common words are as
+     * likely to appear as rare ones although rare words far outnumber them, and every gap the game aims for finds a
+     * partner.
+     */
+    public List<HigherLowerWord> sample(String language, String fluent, int perBand) {
         return jdbc.query(
                 """
                 with ranked as (
@@ -44,12 +49,15 @@ public class HigherLowerWordStore {
                     from ranked r
                     join lexicon.lexeme l
                       on l.language = :language and lower(l.lemma) = r.lemma_key and l.kind = 'word'
-                    join glossed gl on gl.lexeme_id = l.id
+                    left join glossed gl on gl.lexeme_id = l.id
                     where r.rank between :firstRank and :lastRank and l.pos in ('NOUN', 'VERB', 'ADJ', 'ADV')
-                    order by r.lemma_key,
+                    order by r.lemma_key, gl.sense_id is null,
                              (select count(*) from lexicon.sense s where s.lexeme_id = l.id) desc, l.homograph_no
+                ), banded as (
+                    select c.*, row_number() over (partition by floor(c.zipf * 4) order by random()) as pick
+                    from candidates c
                 ), sample as (
-                    select * from candidates order by random() limit :limit
+                    select * from banded where pick <= :perBand
                 )
                 select c.lemma, c.zipf, c.rank,
                        (select string_agg(g.gloss, ', ' order by g.rank) from lexicon.sense_gloss g
@@ -60,7 +68,7 @@ public class HigherLowerWordStore {
                         .addValue("fluent", fluent)
                         .addValue("firstRank", FIRST_RANK)
                         .addValue("lastRank", LAST_RANK)
-                        .addValue("limit", limit),
+                        .addValue("perBand", perBand),
                 (row, index) -> new HigherLowerWord(
                         row.getString("lemma"),
                         row.getString("gloss"),

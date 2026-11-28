@@ -39,7 +39,7 @@ class HigherLowerServiceTest {
     void asksTheLexiconInItsOwnLowerCaseCodesWithTheReadersMeaningLanguage() {
         service.words(Language.DE, Language.UK);
 
-        verify(wordStore).sample("de", "uk", HigherLowerService.BATCH_SIZE);
+        verify(wordStore).sample("de", "uk", HigherLowerService.WORDS_PER_BAND);
     }
 
     @Test
@@ -48,9 +48,9 @@ class HigherLowerServiceTest {
         service.words(Language.EN, null);
         service.words(Language.FR, Language.FR);
 
-        verify(wordStore).sample("de", "en", HigherLowerService.BATCH_SIZE);
-        verify(wordStore).sample("en", "uk", HigherLowerService.BATCH_SIZE);
-        verify(wordStore).sample("fr", "en", HigherLowerService.BATCH_SIZE);
+        verify(wordStore).sample("de", "en", HigherLowerService.WORDS_PER_BAND);
+        verify(wordStore).sample("en", "uk", HigherLowerService.WORDS_PER_BAND);
+        verify(wordStore).sample("fr", "en", HigherLowerService.WORDS_PER_BAND);
     }
 
     @Test

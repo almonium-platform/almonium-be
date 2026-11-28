@@ -21,21 +21,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class HigherLowerService {
-    /** Enough words that a run never exhausts the batch, and dense enough that every gap finds a partner. */
-    static final int BATCH_SIZE = 600;
+    /** Words per quarter-Zipf band: a few hundred in all, enough that a run never exhausts the batch. */
+    static final int WORDS_PER_BAND = 40;
 
     private final HigherLowerWordStore wordStore;
     private final HigherLowerBestStore bestStore;
 
     /**
-     * A fresh batch of words in {@code language}, each with its meaning in {@code fluent}. Without a fluent
+     * A fresh batch of words in {@code language}, each with its meaning in {@code fluent} where the entry has one. Without a fluent
      * language, meanings are English, or Ukrainian for English itself.
      */
     @Transactional(readOnly = true)
     public List<HigherLowerWord> words(Language language, Language fluent) {
         Language meanings =
                 fluent != null && fluent != language ? fluent : language == Language.EN ? Language.UK : Language.EN;
-        return wordStore.sample(lexiconCode(language), lexiconCode(meanings), BATCH_SIZE);
+        return wordStore.sample(lexiconCode(language), lexiconCode(meanings), WORDS_PER_BAND);
     }
 
     @Transactional(readOnly = true)
