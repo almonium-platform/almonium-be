@@ -63,6 +63,7 @@ Legend: ✅ allowed · ❌ refused by the backend · 🔢 allowed up to a limit
 | Target languages active at once | ❌ | 🔢 | 🔢 | When a member downgrades, extra languages are switched off, never deleted |
 | Fluent (bridge) languages | ❌ | 🔢 | ✅ | |
 | Chat with Almo | ❌ | ❌ | 🔢 | Refused for Free (`AlmoChatService`). Premium has a silent ceiling of 60 replies per rolling day. |
+| Play Higher or Lower | ✅ | ✅ | ✅ | Words from `/public/play/higher-lower/{language}/words`, no limit. A signed-in member's best run per language is kept (`/play/higher-lower/bests`); a guest's run is not. Nothing touches the deck or review. |
 
 ### Sharing and social
 

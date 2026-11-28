@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261128-higher-lower-best
+      author: claude
+      comment: >-
+        Higher or Lower keeps one number per member and language: the longest run played. Runs
+        themselves are not stored, and nothing here touches the deck or review.
+      changes:
+        - createTable:
+            tableName: higher_lower_best
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_higher_lower_best_user
+                    references: user_core(id)
+                    deleteCascade: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: best
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: higher_lower_best
+            columnNames: user_id, language
+            constraintName: pk_higher_lower_best

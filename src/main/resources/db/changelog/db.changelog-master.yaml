@@ -223,3 +223,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261127-rights-report-about-cover.yaml
   - include:
       file: db/changelog/changes/patches/20261127-live-books.yaml
+  - include:
+      file: db/changelog/changes/patches/20261128-higher-lower-best.yaml
