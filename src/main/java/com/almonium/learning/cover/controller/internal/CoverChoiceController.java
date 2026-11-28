@@ -7,6 +7,7 @@ import com.almonium.learning.cover.model.CoverStatus;
 import com.almonium.learning.cover.service.CoverService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,8 @@ import tools.jackson.databind.ObjectMapper;
 @RequestMapping("/internal/covers")
 @RequiredArgsConstructor
 public class CoverChoiceController {
+    private static final int MAX_QUERY_LENGTH = 80;
+
     private final CoverService coverService;
     private final BooksSignature signature;
     private final ObjectMapper objectMapper;
@@ -47,6 +50,16 @@ public class CoverChoiceController {
         return ResponseEntity.ok(coverService.pending());
     }
 
+    /** Every work on the shelf, decided or not: for a run that looks at all of them again. The body is {@code {}}. */
+    @PostMapping("/works")
+    public ResponseEntity<List<String>> works(
+            @RequestHeader("X-Almonium-Books-Timestamp") long timestamp,
+            @RequestHeader("X-Almonium-Books-Signature") String signed,
+            @RequestBody byte[] body) {
+        signature.verify(timestamp, signed, body);
+        return ResponseEntity.ok(coverService.works());
+    }
+
     /** {@code {"workSlug": "…"}}: the work's title and author and its licence-cleared candidates. */
     @PostMapping("/candidates")
     public ResponseEntity<CoverCandidates> candidates(
@@ -59,6 +72,31 @@ public class CoverChoiceController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "workSlug is required");
         }
         return ResponseEntity.ok(coverService.candidates(workSlug));
+    }
+
+    /**
+     * {@code {"workSlug": "…", "queries": ["Dublin street 1900", …]}}: licence-cleared pictures Commons' search
+     * finds for those words, for a work that has no illustrations of its own.
+     */
+    @PostMapping("/fitting")
+    public ResponseEntity<CoverCandidates> fitting(
+            @RequestHeader("X-Almonium-Books-Timestamp") long timestamp,
+            @RequestHeader("X-Almonium-Books-Signature") String signed,
+            @RequestBody byte[] body) {
+        signature.verify(timestamp, signed, body);
+        JsonNode request = read(body, JsonNode.class);
+        String workSlug = request.path("workSlug").asString("");
+        List<String> queries = new ArrayList<>();
+        request.path("queries").forEach(query -> {
+            String words = query.asString("").trim();
+            if (!words.isEmpty() && words.length() <= MAX_QUERY_LENGTH) {
+                queries.add(words);
+            }
+        });
+        if (workSlug.isBlank() || queries.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "workSlug and queries are required");
+        }
+        return ResponseEntity.ok(coverService.fitting(workSlug, queries));
     }
 
     @PutMapping("/decisions")

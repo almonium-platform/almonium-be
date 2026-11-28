@@ -70,7 +70,8 @@ class CoverServiceTest {
                 "Theodor von Holst",
                 "Public domain",
                 copyrighted,
-                List.of(categories));
+                List.of(categories),
+                "Frankenstein");
     }
 
     WorkCover saved() {
@@ -90,7 +91,7 @@ class CoverServiceTest {
                         file("File:Frontispiece 1831.jpg", "image/jpeg", false, "PD-Art (PD-old-100)")));
         when(commons.download(any())).thenReturn(new byte[] {1, 2, 3});
         when(judge.choose(eq("Frankenstein"), eq("Mary Shelley"), anyList()))
-                .thenReturn(new CoverJudge.Verdict(1, 50, 20, "The creature and its maker.", "sonnet"));
+                .thenReturn(new CoverJudge.Verdict(0, 50, 20, "The creature and its maker.", "sonnet"));
 
         assertThat(service.prepare("frankenstein")).isEqualTo(CoverStatus.APPROVED);
 
@@ -98,7 +99,8 @@ class CoverServiceTest {
         verify(judge).choose(any(), any(), shown.capture());
         assertThat(shown.getValue())
                 .extracting(CoverJudge.Shown::title)
-                .containsExactly("File:Title page.jpg", "File:Frontispiece 1831.jpg");
+                // the frontispiece leads: its name promises a picture, a title page's does not
+                .containsExactly("File:Frontispiece 1831.jpg", "File:Title page.jpg");
         WorkCover cover = saved();
         assertThat(cover.getStatus()).isEqualTo(CoverStatus.APPROVED);
         assertThat(cover.getImage()).containsExactly(1, 2, 3);
@@ -164,6 +166,66 @@ class CoverServiceTest {
     }
 
     @Test
+    void aFileFreeOnlyInTheUnitedStatesPassesWhenItsArtistDiedLongEnoughAgoAndNotOnTheAuthorsName() {
+        properties.setApiJudge(false);
+        CommonsFile byBull = new CommonsFile(
+                "File:Plate 3.jpg",
+                "p",
+                "https://upload.wikimedia.org/3.jpg",
+                "image/jpeg",
+                900,
+                1200,
+                "Charles Livingston Bull",
+                "Public domain",
+                false,
+                List.of("PD US expired"),
+                "Frankenstein");
+        CommonsFile byCugat = new CommonsFile(
+                "File:Jacket.jpg",
+                "p",
+                "https://upload.wikimedia.org/j.jpg",
+                "image/jpeg",
+                900,
+                1200,
+                "Francis Cugat",
+                "Public domain",
+                false,
+                List.of("PD US not renewed"),
+                "Frankenstein");
+        CommonsFile creditedToTheAuthor = new CommonsFile(
+                "File:Page.jpg",
+                "p",
+                "https://upload.wikimedia.org/p.jpg",
+                "image/jpeg",
+                900,
+                1200,
+                "Mary Shelley",
+                "Public domain",
+                false,
+                List.of("PD US expired"),
+                "Frankenstein");
+        when(commons.filesFor("Q150827")).thenReturn(List.of(byBull, byCugat, creditedToTheAuthor));
+        when(commons.deathYear("Charles Livingston Bull")).thenReturn(Optional.of(1932));
+        when(commons.deathYear("Francis Cugat")).thenReturn(Optional.of(1981));
+
+        assertThat(service.candidates("frankenstein").candidates())
+                .extracting(CoverCandidate::title, CoverCandidate::licenceBasis)
+                .containsExactly(tuple("File:Plate 3.jpg", "PD US; Charles Livingston Bull died in 1932"));
+        verify(commons, never()).deathYear("Mary Shelley");
+    }
+
+    @Test
+    void aWorkTheCatalogueHasNoWikidataItemForIsLookedUpByTitleAndAuthor() {
+        properties.setApiJudge(false);
+        when(works.findByWorkSlug("frankenstein")).thenReturn(List.of());
+        when(commons.findWork("Frankenstein", "Mary Shelley")).thenReturn(Optional.of("Q150827"));
+        when(commons.filesFor("Q150827"))
+                .thenReturn(List.of(file("File:Frontispiece 1831.jpg", "image/jpeg", false, "PD Old")));
+
+        assertThat(service.candidates("frankenstein").candidates()).hasSize(1);
+    }
+
+    @Test
     void anOutsideDecisionIsFetchedFromCommonsHereAndNeverFromAnotherHost() {
         CoverCandidate chosen = new CoverCandidate(
                 "File:Frontispiece 1831.jpg",
@@ -172,7 +234,8 @@ class CoverServiceTest {
                 "image/jpeg",
                 "Theodor von Holst",
                 "Public domain",
-                "PD Old");
+                "PD Old",
+                "Frankenstein");
         when(commons.download(chosen.imageUrl())).thenReturn(new byte[] {7});
 
         assertThat(service.decide(new CoverDecision("frankenstein", chosen, 45, 20, "The creature.", "plan")))
@@ -186,7 +249,8 @@ class CoverServiceTest {
                 "image/jpeg",
                 "",
                 "",
-                "PD Old");
+                "PD Old",
+                "");
         assertThatThrownBy(() -> service.decide(new CoverDecision("frankenstein", elsewhere, 50, 50, "", "plan")))
                 .isInstanceOf(IllegalArgumentException.class);
     }

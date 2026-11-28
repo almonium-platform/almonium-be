@@ -20,9 +20,11 @@ import jakarta.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.time.Clock;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +45,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CoverService {
     private static final Set<String> RASTER = Set.of("image/jpeg", "image/png");
-    private static final int MIN_WIDTH = 500;
+    /** A cover's plate is printed a few hundred pixels wide; many period plates were scanned no larger. */
+    private static final int MIN_WIDTH = 320;
+    /** Fewer cleared files than this and Commons' search is asked as well. */
+    private static final int FEW = 24;
+    /** How many candidates the API's model is sent, each as its own image. */
+    private static final int API_SHOWN = 12;
+
+    private static final int MAX_QUERIES = 6;
+
     private static final int MAX_BYTES = 2_000_000;
     private static final int CENTRE = 50;
     /** Where Commons serves its files and their thumbnails from; a decision may name no other host. */
@@ -69,6 +79,11 @@ public class CoverService {
         return coverRepository
                 .findById(workSlug)
                 .filter(cover -> cover.getStatus() == CoverStatus.APPROVED && cover.getImage() != null);
+    }
+
+    /** Every work on the shelf, in order. */
+    public List<String> works() {
+        return bookRepository.findWorkSlugs().stream().sorted().toList();
     }
 
     /** The works on the shelf that have never been looked at, in order. */
@@ -116,6 +131,10 @@ public class CoverService {
                 .filter(id -> id != null && !id.isBlank())
                 .findFirst();
         if (wikidataId.isEmpty()) {
+            // the catalogue has rows without one (a Gutenberg row never merged with its Wikidata twin)
+            wikidataId = commons.findWork(book.getTitle(), book.getAuthor());
+        }
+        if (wikidataId.isEmpty()) {
             return new CoverCandidates(
                     workSlug,
                     book.getTitle(),
@@ -123,11 +142,67 @@ public class CoverService {
                     List.of(),
                     "The work is not linked to a catalogue entry with a Wikidata id.");
         }
-        List<CoverCandidate> candidates = new ArrayList<>();
-        for (CommonsFile file : commons.filesFor(wikidataId.get())) {
-            if (candidates.size() >= properties.getMaxCandidates()) {
-                break;
+        List<CoverCandidate> cleared = cleared(commons.filesFor(wikidataId.get()), book.getAuthor());
+        if (cleared.size() < FEW) {
+            // a thin category: Commons' own search is asked too, and the judge weeds out what is not this book
+            Set<String> known = new HashSet<>();
+            cleared.forEach(candidate -> known.add(candidate.title()));
+            cleared = new ArrayList<>(cleared);
+            for (CoverCandidate found : cleared(commons.search(searchWords(book)), book.getAuthor())) {
+                if (known.add(found.title())) {
+                    cleared.add(found);
+                }
             }
+        }
+        List<CoverCandidate> candidates = CoverSearch.deal(
+                cleared, CoverCandidate::foundIn, CoverCandidate::title, properties.getMaxCandidates());
+        return new CoverCandidates(
+                workSlug,
+                book.getTitle(),
+                book.getAuthor(),
+                candidates,
+                candidates.isEmpty() ? "No file on Commons passed the licence rule." : "");
+    }
+
+    /**
+     * Pictures that suit a work without having been made for it: what Commons' search finds for the words a judge
+     * proposes (a setting, an era, a motif), narrowed by the same licence rule and dealt across the queries. For a
+     * book that was never illustrated, a period view of its city is a truer cover than none.
+     */
+    public CoverCandidates fitting(String workSlug, List<String> queries) {
+        List<Book> editions = bookRepository.findByWorkSlug(workSlug);
+        if (editions.isEmpty()) {
+            throw new EntityNotFoundException("Work not found");
+        }
+        Book book = editions.stream()
+                .filter(edition -> edition.getOriginalBook() == null)
+                .findFirst()
+                .orElse(editions.getFirst());
+        List<CoverCandidate> cleared = new ArrayList<>();
+        Set<String> known = new HashSet<>();
+        for (String query : queries.stream().limit(MAX_QUERIES).toList()) {
+            // bitmaps only: the search otherwise answers with scanned books and audio
+            for (CoverCandidate found :
+                    cleared(commons.search(query + " filetype:bitmap", "Search: " + query), book.getAuthor())) {
+                if (known.add(found.title())) {
+                    cleared.add(found);
+                }
+            }
+        }
+        List<CoverCandidate> candidates = CoverSearch.deal(
+                cleared, CoverCandidate::foundIn, CoverCandidate::title, properties.getMaxCandidates());
+        return new CoverCandidates(
+                workSlug,
+                book.getTitle(),
+                book.getAuthor(),
+                candidates,
+                candidates.isEmpty() ? "No fitting file on Commons passed the licence rule." : "");
+    }
+
+    /** The files that are pictures large enough to print and free to take, each with the category it passed on. */
+    private List<CoverCandidate> cleared(List<CommonsFile> files, String author) {
+        List<CoverCandidate> cleared = new ArrayList<>();
+        for (CommonsFile file : files) {
             if (!RASTER.contains(file.mime())
                     || file.width() < MIN_WIDTH
                     || file.imageUrl().isBlank()
@@ -135,21 +210,49 @@ public class CoverService {
                 continue;
             }
             CoverLicence.basis(file.hiddenCategories(), properties.getMinYearsSinceDeath())
-                    .ifPresent(basis -> candidates.add(new CoverCandidate(
+                    .or(() -> byArtistsDeath(file, author))
+                    .ifPresent(basis -> cleared.add(new CoverCandidate(
                             file.title(),
                             file.pageUrl(),
                             file.imageUrl(),
                             file.mime(),
                             file.artist(),
                             file.licence(),
-                            basis)));
+                            basis,
+                            file.foundIn())));
         }
-        return new CoverCandidates(
-                workSlug,
-                book.getTitle(),
-                book.getAuthor(),
-                candidates,
-                candidates.isEmpty() ? "No file on Commons passed the licence rule." : "");
+        return cleared;
+    }
+
+    /**
+     * A file Commons marks free in the United States and says no more about: free elsewhere too when its credited
+     * artist is known to have died long enough ago. A credit that only repeats the book's author says nothing
+     * about who drew the picture, so it settles nothing.
+     */
+    private Optional<String> byArtistsDeath(CommonsFile file, String author) {
+        if (!CoverLicence.freeInTheUnitedStates(file.hiddenCategories())
+                || file.artist().isBlank()
+                || sameName(file.artist(), author)) {
+            return Optional.empty();
+        }
+        int latest = LocalDate.now(clock).getYear() - properties.getMinYearsSinceDeath() - 1;
+        return commons.deathYear(file.artist())
+                .filter(year -> year <= latest)
+                .map(year -> "PD US; " + file.artist() + " died in " + year);
+    }
+
+    private static boolean sameName(String credit, String author) {
+        String lastName = author == null || author.isBlank()
+                ? ""
+                : author.trim().substring(author.trim().lastIndexOf(' ') + 1).toLowerCase(Locale.ROOT);
+        return !lastName.isEmpty() && credit.toLowerCase(Locale.ROOT).contains(lastName);
+    }
+
+    /** The title in quotes and the author's last name: enough for Commons' search to stay near the book. */
+    private static String searchWords(Book book) {
+        String author = book.getAuthor() == null ? "" : book.getAuthor().trim();
+        String lastName = author.isEmpty() ? "" : author.substring(author.lastIndexOf(' ') + 1);
+        return ("\"" + book.getTitle() + "\" " + lastName + " illustration").trim();
     }
 
     /**
@@ -201,7 +304,8 @@ public class CoverService {
         }
         List<CoverJudge.Shown> shown = new ArrayList<>();
         List<CoverCandidate> shownCandidates = new ArrayList<>();
-        for (CoverCandidate candidate : offered.candidates()) {
+        for (CoverCandidate candidate :
+                offered.candidates().stream().limit(API_SHOWN).toList()) {
             byte[] bytes = commons.download(candidate.imageUrl());
             if (bytes != null && bytes.length > 0 && bytes.length <= MAX_BYTES) {
                 shown.add(new CoverJudge.Shown(candidate.title(), candidate.mime(), bytes));

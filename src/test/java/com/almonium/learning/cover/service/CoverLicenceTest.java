@@ -37,6 +37,26 @@ class CoverLicenceTest {
     }
 
     @Test
+    void readsTheNationalTagsOfASeventyYearTerm() {
+        assertThat(CoverLicence.basis(List.of("PD US expired", "PD-UK"), 70)).contains("PD-UK");
+        assertThat(CoverLicence.basis(List.of("PD France", "PD US expired"), 70))
+                .contains("PD France");
+        assertThat(CoverLicence.basis(List.of("PD-anon-70-EU", "PD-anon-expired"), 70))
+                .contains("PD-anon-70-EU");
+        assertThat(CoverLicence.basis(List.of("PD-UK"), 100)).isEmpty();
+    }
+
+    @Test
+    void aFileFreeOnlyInTheUnitedStatesIsLeftForItsArtistsDeathToSettle() {
+        assertThat(CoverLicence.freeInTheUnitedStates(List.of("PD US expired", "PD-US missing SDC copyright status")))
+                .isTrue();
+        assertThat(CoverLicence.freeInTheUnitedStates(List.of("PD US not renewed")))
+                .isTrue();
+        assertThat(CoverLicence.freeInTheUnitedStates(List.of("PD US Government", "CC-BY-4.0")))
+                .isFalse();
+    }
+
+    @Test
     void takesAFileGivenToThePublicDomainByItsMaker() {
         assertThat(CoverLicence.basis(List.of("CC-zero"), 100)).contains("CC-zero");
     }

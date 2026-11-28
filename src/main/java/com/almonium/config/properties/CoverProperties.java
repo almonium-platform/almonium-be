@@ -43,9 +43,9 @@ public class CoverProperties {
     @Min(70)
     int minYearsSinceDeath = 70;
 
-    /** How many candidates that pass the licence rule are shown to the model for one book. */
+    /** How many candidates that pass the licence rule are offered to a judge for one book: four sheets of twelve. */
     @Min(1)
-    int maxCandidates = 12;
+    int maxCandidates = 48;
 
     /** Commons asks automated clients to say who they are. */
     @NotBlank

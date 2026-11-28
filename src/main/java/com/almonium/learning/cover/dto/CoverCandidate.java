@@ -8,4 +8,6 @@ public record CoverCandidate(
         String mime,
         String artist,
         String licence,
-        String licenceBasis) {}
+        String licenceBasis,
+        /** The Commons category the file was found in, which often says what the picture is. */
+        String foundIn) {}
