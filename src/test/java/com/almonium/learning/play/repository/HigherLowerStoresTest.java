@@ -51,10 +51,15 @@ class HigherLowerStoresTest {
         gloss(sense(lexeme("de", "Berlin", "PROPN", "4.70"), 1), "uk", 1, "Берлін");
         gloss(sense(lexeme("de", "Zeit", "NOUN", "7.00"), 1), "uk", 1, "час");
         gloss(sense(lexeme("de", "Angst", "NOUN", "4.50"), 1), "en", 1, "fear");
+        lexeme("de", "n", "NOUN", "4.55");
+        lexeme("de", "z.B.", "ADV", "4.40");
+        lexeme("de", "Kaiser-Wilhelm", "NOUN", "4.30");
 
         List<HigherLowerWord> batch = words.sample("de", "uk", 10);
 
-        assertThat(batch).extracting(HigherLowerWord::headword).containsExactlyInAnyOrder("Heimat", "Brücke", "Angst");
+        assertThat(batch)
+                .extracting(HigherLowerWord::headword)
+                .containsExactlyInAnyOrder("Heimat", "Brücke", "Angst", "Kaiser-Wilhelm");
         HigherLowerWord placed = batch.stream()
                 .filter(word -> word.headword().equals("Heimat"))
                 .findFirst()
@@ -97,7 +102,7 @@ class HigherLowerStoresTest {
             lexeme("en", "filler" + i, "DET", "7.00");
         }
         for (int i = 0; i < 6; i++) {
-            lexeme("en", "rare" + i, "NOUN", "3.1" + i);
+            lexeme("en", "rare" + "abcdef".charAt(i), "NOUN", "3.1" + i);
         }
         lexeme("en", "common", "NOUN", "5.10");
 
