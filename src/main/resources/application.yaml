@@ -212,7 +212,7 @@ external.api:
     yandex: ${YANDEX_KEY}
 
 # Cover art: period illustrations from Wikimedia Commons, filtered by a licence rule here and picked by a vision
-# model. The pick is made on the owner's plan by scripts/covers/choose_covers.py through /internal/covers. Setting
+# model. The pick is made on the owner's plan by the book processor (./plan-manage choose_covers) through /internal/covers. Setting
 # COVER_API_JUDGE=true makes this service ask OpenRouter itself each night instead, paid by the call.
 covers:
   api-judge: ${COVER_API_JUDGE:false}

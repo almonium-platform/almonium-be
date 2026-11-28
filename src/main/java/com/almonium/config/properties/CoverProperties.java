@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 /**
  * Cover art from Wikimedia Commons: how old an artist's death must be before a file is taken, and who looks at the
  * candidates. By default nobody here does: the choice is made on the owner's plan by
- * {@code scripts/covers/choose_covers.py}, which asks this service for the candidates and hands back its pick.
+ * the book processor ({@code ./plan-manage choose_covers}, and after each publication), which asks this service for the candidates and hands back its pick.
  * {@code api-judge} makes this service ask a vision model itself, paid by the call.
  */
 @Getter

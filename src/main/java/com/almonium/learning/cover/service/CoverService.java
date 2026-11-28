@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
  * Finds cover art for the works on the shelf with nobody watching. For one work: the files Wikimedia holds for it,
  * narrowed by the licence rule, shown to a judge, and the one it picks kept as our own copy beside the record of
  * where it came from. A work with no good candidate gets a row saying so and keeps its typographic cover. The judge
- * is a vision model on the owner's plan, asked by {@code scripts/covers/choose_covers.py} through the internal
+ * is a vision model on the owner's plan, asked by the book processor ({@code catalog/covers.py}) through the internal
  * endpoints, or the API's model asked from here when {@code covers.api-judge} is on.
  *
  * <p>No class-level transaction: a work holds HTTP calls for seconds, and each row is saved on its own.
