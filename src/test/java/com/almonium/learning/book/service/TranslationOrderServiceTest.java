@@ -161,6 +161,7 @@ class TranslationOrderServiceTest {
         translation.setId(UUID.randomUUID());
         translation.setTitle("Effi Briest");
         translation.setEditionSlug("effi-briest-uk");
+        translation.setEditionSlug("effi-briest-uk-translation");
         translation.setLanguage(Language.UK);
         translation.setOriginalBook(original);
         User asker = user();
@@ -191,14 +192,14 @@ class TranslationOrderServiceTest {
                         Language.UK,
                         "August",
                         "https://covers.example/effi.jpg",
-                        "/reader/effi-briest-de-original?parallel=UK");
+                        "/reader/effi-briest-de-original?parallel=effi-briest-uk-translation");
         verify(bookEmailService)
                 .translationReady(
                         asker,
                         "Effi Briest",
                         Language.UK,
                         "August",
-                        "/reader/effi-briest-de-original?parallel=UK",
+                        "/reader/effi-briest-de-original?parallel=effi-briest-uk-translation",
                         "You have 2 requests left this month.");
     }
 

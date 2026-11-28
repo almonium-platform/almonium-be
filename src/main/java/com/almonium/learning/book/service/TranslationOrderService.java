@@ -73,8 +73,7 @@ public class TranslationOrderService {
 
         // Chapter one of the pair: the original edition in the reader with the new language alongside.
         Book original = book.getOriginalBook();
-        String actionPath = "/reader/%s?parallel=%s"
-                .formatted(original.getEditionSlug(), book.getLanguage().name());
+        String actionPath = "/reader/%s?parallel=%s".formatted(original.getEditionSlug(), book.getEditionSlug());
         String coverUrl = book.getCoverUrl() != null ? book.getCoverUrl() : original.getCoverUrl();
         for (TranslationOrder order : orders) {
             User user = order.getUser();
