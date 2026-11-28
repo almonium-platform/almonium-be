@@ -11,6 +11,7 @@ import com.almonium.learning.catalog.model.CatalogAuthor;
 import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.WorkRow;
 import com.almonium.learning.catalog.service.CatalogMatcher;
+import com.almonium.learning.cover.service.CoverService;
 import com.almonium.learning.rights.dto.request.RightsOverrideRequest;
 import com.almonium.learning.rights.engine.CopyrightEngine;
 import com.almonium.learning.rights.model.RightsStatus;
@@ -37,6 +38,7 @@ import org.springframework.boot.testcontainers.context.ImportTestcontainers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.ObjectMapper;
@@ -72,6 +74,10 @@ class TakedownFlowTest {
             return new ObjectMapper();
         }
     }
+
+    /** A takedown also drops the work's cover; that reaches Wikimedia and is not this test's subject. */
+    @MockitoBean
+    CoverService coverService;
 
     @Autowired
     BookRepository books;
